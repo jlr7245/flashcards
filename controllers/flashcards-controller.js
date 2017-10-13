@@ -1,4 +1,5 @@
 const Flashcard = require('../models/flashcard');
+const categoryLookup = require('./category-lookup');
 
 const flashcardsController = {};
 
@@ -27,6 +28,19 @@ flashcardsController.show = (req, res) => {
       });
     });
 };
+
+flashcardsController.category = (req, res) => {
+  Flashcard.findByCategory(categoryLookup[req.params.category])
+    .then(flashcards => {
+      res.status(200).render('flashcards/flashcards-index', {
+        flashcards,
+      });
+    }).catch(err => {
+      res.status(500).json({
+        err,
+      });
+    });
+}
 
 flashcardsController.create = (req, res) => {
   Flashcard.create({
