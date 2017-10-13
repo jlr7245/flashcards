@@ -16,6 +16,9 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
+const flashcardsRouter = require('./routes/flashcards-routes');
+app.use('/flashcards', flashcardsRouter);
+
 app.use('*', (req, res) => {
   res.status(404).send('Not Found!');
 });
