@@ -12,7 +12,17 @@ Flashcard.findById = id => {
     SELECT * FROM flashcards
     WHERE id = $1
   `,
-    [id],
+    [id]
+  );
+};
+
+Flashcard.findByCategory = category => {
+  return db.manyOrNone(
+    `
+  SELECT * FROM flashcards
+  WHERE category = $1
+  `,
+    [category]
   );
 };
 
@@ -29,7 +39,7 @@ Flashcard.create = flashcard => {
       flashcard.answer,
       flashcard.category,
       flashcard.difficulty,
-    ],
+    ]
   );
 };
 
@@ -50,7 +60,7 @@ Flashcard.update = (flashcard, id) => {
       flashcard.category,
       flashcard.difficulty,
       id,
-    ],
+    ]
   );
 };
 
@@ -60,7 +70,7 @@ Flashcard.destroy = id => {
     DELETE FROM flashcards
     WHERE id = $1
   `,
-    [id],
+    [id]
   );
 };
 
