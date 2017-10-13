@@ -10,10 +10,12 @@ flashcardsRouter.get('/new', (req, res) => {
 });
 flashcardsRouter.post('/', flashcardsController.create);
 
-flashcardsRouter.get('/:id', flashcardsController.show);
-flashcardsRouter.get('/:id/edit', flashcardsController.edit);
-flashcardsRouter.put('/:id', flashcardsController.update);
+flashcardsRouter.get('/:category([A-Za-z\-]+)', flashcardsController.category);
 
-flashcardsRouter.delete('/:id', flashcardsController.delete);
+flashcardsRouter.get('/:id(\\d+)', flashcardsController.show);
+flashcardsRouter.get('/:id(\\d+)/edit', flashcardsController.edit);
+flashcardsRouter.put('/:id(\\d+)', flashcardsController.update);
+
+flashcardsRouter.delete('/:id(\\d+)', flashcardsController.delete);
 
 module.exports = flashcardsRouter;
