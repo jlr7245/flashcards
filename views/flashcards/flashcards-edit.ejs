@@ -1,11 +1,13 @@
 <% include ../partials/boilerplate %>
 
-  <form action="/flashcards/<%= flashcard.id%>?_PUT" method="POST">
+  <form action="/flashcards/<%= flashcard.id%>?_method=PUT" method="POST">
     <input type="text" name="question" placeholder="Question" value="<%= flashcard.question %>" />
     <input type="text" name="answer" placeholder="Answer" value="<%= flashcard.answer %>"  />
     <input type="text" name="category" placeholder="Category" value="<%= flashcard.category %>" />
     <input type="number" name="difficulty" placeholder="Difficulty" value="<%= parseInt(flashcard.difficulty) %>" />
     <input type="submit" value="Edit it!" />
   </form>
+
+  <a href="/flashcards/<%=flashcard.id %>">Back to flashcard</a>
 
 <% include ../partials/end %>
