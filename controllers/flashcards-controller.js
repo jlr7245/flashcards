@@ -5,11 +5,8 @@ const flashcardsController = {};
 flashcardsController.index = (req, res) => {
   Flashcard.findAll()
     .then(flashcards => {
-      res.status(200).json({
-        message: 'ok',
-        data: {
-          flashcards,
-        },
+      res.status(200).render('flashcards/flashcards-index', {
+        flashcards,
       });
     }).catch(err => {
       res.status(500).json({
@@ -21,11 +18,8 @@ flashcardsController.index = (req, res) => {
 flashcardsController.show = (req, res) => {
   Flashcard.findById(req.params.id)
     .then(flashcard => {
-      res.status(200).json({
-        message: 'ok',
-        data: {
-          flashcard,
-        },
+      res.status(200).render('flashcards/flashcards-show', {
+        flashcard
       });
     }).catch(err => {
       res.status(500).json({
@@ -42,17 +36,25 @@ flashcardsController.create = (req, res) => {
     difficulty: req.body.difficulty,
   })
   .then(flashcard => {
-    res.status(200).json({
-      message: 'ok',
-      data: {
-        flashcard,
-      },
-    });
+    res.redirect(`/flashcards/${flashcard.id}`)
   }).catch(err => {
     res.status(500).json({
       err,
     });
   });
+};
+
+flashcardsController.edit = (req, res) => {
+  Flashcard.findById(req.params.id)
+    .then(flashcard => {
+      res.status(200).render('flashcards/flashcards-edit', {
+        flashcard,
+      });
+    }).catch(err => {
+      res.status(500).json({
+        err,
+      });
+    });
 };
 
 flashcardsController.update = (req, res) => {
@@ -66,12 +68,7 @@ flashcardsController.update = (req, res) => {
     req.params.id
   )
     .then(flashcard => {
-      res.status(200).json({
-        message: 'ok',
-        data: {
-          flashcard,
-        },
-      });
+      res.redirect(`/flashcards/${flashcard.id}`)
     }).catch(err => {
       res.status(500).json({
         err,
@@ -82,10 +79,7 @@ flashcardsController.update = (req, res) => {
 flashcardsController.delete = (req, res) => {
   Flashcard.destroy(req.params.id)
     .then(() => {
-      res.status(200).json({
-        message: 'deleted successfully',
-        data: null,
-      });
+      res.redirect('/flashcards');
     }).catch(err => {
       res.status(500).json({
         err,
