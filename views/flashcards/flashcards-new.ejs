@@ -1,0 +1,9 @@
+<% include ../partials/boilerplate %>
+  <form action="/flashcards" method="POST">
+    <input type="text" name="question" placeholder="Question" />
+    <input type="text" name="answer" placeholder="Answer" />
+    <input type="text" name="category" placeholder="Category" />
+    <input type="number" name="difficulty" placeholder="Difficulty" />
+    <input type="submit" value="Add it!" />
+  </form>
+<% include ../partials/end %>
