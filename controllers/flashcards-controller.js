@@ -1,8 +1,8 @@
 const Flashcard = require('../models/flashcard');
 
-const flaschcardsController = {};
+const flashcardsController = {};
 
-flaschcardsController.index = (req, res) => {
+flashcardsController.index = (req, res) => {
   Flashcard.findAll()
     .then(flashcards => {
       res.status(200).json({
@@ -18,7 +18,7 @@ flaschcardsController.index = (req, res) => {
     });
 };
 
-flaschcardsController.show = (req, res) => {
+flashcardsController.show = (req, res) => {
   Flashcard.findById(req.params.id)
     .then(flashcard => {
       res.status(200).json({
@@ -32,6 +32,27 @@ flaschcardsController.show = (req, res) => {
         err,
       });
     });
+};
+
+flashcardsController.create = (req, res) => {
+  Flashcard.create({
+    question: req.body.question,
+    answer: req.body.answer,
+    category: req.body.category,
+    difficulty: req.body.difficulty,
+  })
+  .then(flashcard => {
+    res.status(200).json({
+      message: 'ok',
+      data: {
+        flashcard,
+      },
+    });
+  }).catch(err => {
+    res.status(500).json({
+      err,
+    });
+  });
 };
 
 flashcardsController.update = (req, res) => {
