@@ -1,0 +1,19 @@
+<% include ../partials/boilerplate %>
+
+<div class="flashcard-single-container">
+  <div class="flashcard">
+    <h3><%= flashcard.question %></h3>
+    <p><%= flashcard.answer %></p>
+    <div class="meta">
+      <span class="category"><%= flashcard.category %></span>
+      <span class="difficulty">Difficulty: <%= flashcard.difficulty %></span>
+      <a href="/flashcards/<%=flashcard.id%>/edit">Edit this flashcard</a>
+      <form action="/flashcards/<%= flashcard.id%>?_method=DELETE" method="POST">
+        <input type="submit" value="Delete flashcard">
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<% include ../partials/end %>

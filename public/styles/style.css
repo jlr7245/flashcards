@@ -1,0 +1,43 @@
+body {
+  min-height: 100vh;
+  font-family: sans-serif;
+  line-height: 1.4em;
+  display: flex;
+}
+
+.flashcard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flashcard {
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.meta {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  margin-bottom: 10px;
+}
+
+.meta span {
+  background-color: #ddd;
+  display: inline-block;
+  padding: 2px 8px;
+}
+
+.flashcard h3 {
+  font-size: 1.5em;
+  line-height: 1.4em;
+}
+
+.flashcard-single-container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
