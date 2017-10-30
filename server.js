@@ -39,6 +39,10 @@ app.get('/', (req, res) => {
 
 const flashcardsRouter = require('./routes/flashcards-routes');
 app.use('/flashcards', flashcardsRouter);
+const authRoutes = require('./routes/auth-routes');
+app.use('/auth', authRoutes);
+const userRoutes = require('./routes/user-routes');
+app.use('/user', userRoutes);
 
 app.use('*', (req, res) => {
   res.status(404).send('Not Found!');
