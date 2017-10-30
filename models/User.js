@@ -23,16 +23,13 @@ class User {
 
   save() {
     return db.one(
-        `
+      `
       INSERT INTO users
       (username, email, password_digest)
       VALUES ($1, $2, $3)
       RETURNING *
     `,
-        [this.username, this.email, this.password_digest]
-      )
-      .then(user => {
-        return new User(user);
-      });
+      [this.username, this.email, this.password_digest]
+    );
   }
 }
