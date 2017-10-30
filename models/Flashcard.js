@@ -1,77 +1,88 @@
 const db = require('../db/config');
 
-const Flashcard = {};
+class Flashcard {
+  constructor(flashcard) {
+    this.id = flashcard.id;
+    this.question = flashcard.question;
+    this.answer = flashcard.answer;
+    this.category = flashcard.category;
+    this.difficulty = flashcard.difficulty;
+    this.user_id = flashcard.user_id;
+  }
+  static findAll() {
+    return db.manyOrNone('SELECT * FROM flashcards');
+  }
 
-Flashcard.findAll = () => {
-  return db.manyOrNone('SELECT * FROM flashcards');
-};
+  static findById(id) {
+    return db
+      .one(
+        `
+      SELECT * FROM flashcards
+      WHERE id = $1
+    `,
+        [id]
+      )
+      .then(flashcard => {
+        return new Flashcard(flashcard);
+      });
+  }
 
-Flashcard.findById = id => {
-  return db.one(
-    `
+  static findByCategory(category) {
+    return db.manyOrNone(
+      `
     SELECT * FROM flashcards
-    WHERE id = $1
-  `,
-    [id]
-  );
-};
+    WHERE category = $1
+    `,
+      [category]
+    );
+  }
 
-Flashcard.findByCategory = category => {
-  return db.manyOrNone(
-    `
-  SELECT * FROM flashcards
-  WHERE category = $1
-  `,
-    [category]
-  );
-};
+  save() {
+    return db.one(
+      `
+      INSERT INTO flashcards
+      (question, answer, category, difficulty, user_id)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `,
+      [this.question, this.answer, this.category, this.difficulty, this.user_id]
+    );
+  }
 
-Flashcard.create = flashcard => {
-  return db.one(
-    `
-    INSERT INTO flashcards
-    (question, answer, category, difficulty)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *
-  `,
-    [
-      flashcard.question,
-      flashcard.answer,
-      flashcard.category,
-      flashcard.difficulty,
-    ]
-  );
-};
+  modify(changes) {
+    Object.assign(this, changes);
+    return this;
+  }
 
-Flashcard.update = (flashcard, id) => {
-  return db.one(
-    `
-    UPDATE flashcards SET
-    question = $1,
-    answer = $2,
-    category = $3,
-    difficulty = $4
-    WHERE id = $5
-    RETURNING *
-  `,
-    [
-      flashcard.question,
-      flashcard.answer,
-      flashcard.category,
-      flashcard.difficulty,
-      id,
-    ]
-  );
-};
+  update() {
+    return db.one(
+      `
+      UPDATE flashcards SET
+      question = $1,
+      answer = $2,
+      category = $3,
+      difficulty = $4
+      WHERE id = $5
+      RETURNING *
+    `,
+      [
+        this.question,
+        this.answer,
+        this.category,
+        this.difficulty,
+        this.user_id,
+        this.id,
+      ]
+    );
+  }
 
-Flashcard.destroy = id => {
-  return db.none(
-    `
-    DELETE FROM flashcards
-    WHERE id = $1
-  `,
-    [id]
-  );
-};
+  static destroy(id) {
+    return db.none(
+      `DELETE FROM flashcards
+      WHERE id = $1`,
+      [id]
+    );
+  }
+}
 
 module.exports = Flashcard;
