@@ -1,0 +1,17 @@
+<header>
+  <div class="logo">Thundercats Flashcards</div>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/flashcards">All Flashcards</a></li>
+      <li><a href="/flashcards/new">Add New Flashcard</a></li>
+      <% if (auth) { %>
+        <li><a href="/user">Dashboard</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+      <% } else { %>
+        <li><a href="/auth/register">Register</a></li>
+        <li><a href="/auth/login">Login</a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

@@ -2,17 +2,19 @@
 
 <div class="flashcard-single-container">
   <div class="flashcard">
-    <h3><%= flashcard.question %></h3>
-    <p><%= flashcard.answer %></p>
+    <p class="question"><%= flashcard.question %></p>
+    <h3><%= flashcard.answer %></h3>
     <div class="meta">
       <span class="category"><%= flashcard.category %></span>
       <span class="difficulty">Difficulty: <%= flashcard.difficulty %></span>
-      <a href="/flashcards/<%=flashcard.id%>/edit">Edit this flashcard</a>
-      <form action="/flashcards/<%= flashcard.id%>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete flashcard">
-      </form>
+      <% if (current_user === flashcard.user_id) { %>
+        <a class="editlink" href="/flashcards/<%=flashcard.id%>/edit">Edit</a>
+        <form class="delete" action="/flashcards/<%= flashcard.id%>?_method=DELETE" method="POST">
+            <input class="dellink" type="submit" value="Delete">
+        </form>
+     <% } %>
     </div>
-    <a href="/flashcards">Back to all flashcards</a>
+    <a class="linktosingle" href="/flashcards">Back to all flashcards</a>
   </div>
 </div>
 

@@ -1,0 +1,12 @@
+<div class="flashcard-container">
+<% flashcards.forEach(flashcard => { %>
+  <div class="flashcard">
+    <div class="meta">
+      <span class="category"><%= flashcard.category %></span>
+      <span class="difficulty">Difficulty: <%= flashcard.difficulty %></span>
+    </div>
+    <h3><%= flashcard.question %></h3>
+    <a class="linktosingle" href="/flashcards/<%= flashcard.id %>">See the answer!</a>
+  </div>
+<% }) %>
+</div>
