@@ -5,7 +5,9 @@ const authHelpers = require('../services/auth/auth-helpers');
 const usersController = require('../controllers/users-controller');
 
 authRouter.get('/login', authHelpers.loginRedirect, (req, res) => {
-  res.render('auth/login');
+  res.render('auth/login', {
+    auth: req.user ? true : false,
+  });
 });
 authRouter.post(
   '/login',
@@ -17,7 +19,9 @@ authRouter.post(
 );
 
 authRouter.get('/register', authHelpers.loginRedirect, (req, res) => {
-  res.render('auth/register');
+  res.render('auth/register', {
+    auth: req.user ? true : false,
+  });
 });
 authRouter.post('/register', usersController.create);
 

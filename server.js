@@ -17,7 +17,7 @@ app.listen(PORT, () => {
 });
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views',  'views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(logger('dev'));
@@ -34,7 +34,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.render('index', {
+    auth: (req.user) ? true : false,
+  });
 });
 
 const flashcardsRouter = require('./routes/flashcards-routes');
