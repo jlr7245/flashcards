@@ -14,8 +14,7 @@ class Flashcard {
   }
 
   static findById(id) {
-    return db
-      .one(
+    return db.one(
         `
       SELECT * FROM flashcards
       WHERE id = $1
