@@ -11,7 +11,7 @@ class Flashcard {
     this.user_id = flashcard.user_id;
   }
   static findAll() {
-    return db.manyOrNone('SELECT * FROM flashcards');
+    return db.manyOrNone('SELECT * FROM flashcards ORDER BY id ASC');
   }
 
   static findById(id) {
@@ -63,9 +63,8 @@ class Flashcard {
         this.answer,
         this.category,
         this.difficulty,
-        this.user_id,
         this.id,
-      ]);
+      ]).then(flashcard => this.modify(flashcard));
   }
 
   keywords() {

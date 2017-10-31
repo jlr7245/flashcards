@@ -20,7 +20,7 @@ flashcardsController.show = (req, res, next) => {
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-show', {
         auth: req.user ? true : false,
-        current_user: req.user,
+        current_user: (req.user) ? req.user.id : 0,
         flashcard,
         keywords: flashcard.keywords,
       });
@@ -69,13 +69,15 @@ flashcardsController.edit = (req, res, next) => {
 
 flashcardsController.update = (req, res, next) => {
   Flashcard.findById(req.params.id)
-    .modify({
-      question: req.body.question,
-      answer: req.body.answer,
-      category: req.body.category,
-      difficulty: req.body.difficulty,
+    .then(flashcard => {
+      return flashcard.modify({
+        question: req.body.question,
+        answer: req.body.answer,
+        category: req.body.category,
+        difficulty: req.body.difficulty,
+      })
+      .update();
     })
-    .update()
     .then(flashcard => {
       res.redirect(`/flashcards/${flashcard.id}`);
     })

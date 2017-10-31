@@ -13,6 +13,7 @@ class User {
         `
       SELECT * FROM users
       WHERE username = $1
+      ORDER BY id ASC;
     `,
         [username]
       )
