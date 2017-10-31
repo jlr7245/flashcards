@@ -32,4 +32,16 @@ class User {
       [this.username, this.email, this.password_digest]
     );
   }
+
+  flashcards() {
+    return db.manyOrNone(
+      ` 
+      SELECT * FROM flashcards
+      WHERE user_id = $1
+    `,
+      [this.id]
+    );
+  }
 }
+
+module.exports = User;

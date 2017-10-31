@@ -4,9 +4,15 @@ const bcrypt = require('bcryptjs');
 const usersController = {};
 
 usersController.index = (req, res, next) => {
-  res.render('user/user-index', {
-    user: req.user,
-  });
+  new User(req.user)
+    .flashcards()
+    .then(flashcards => {
+      res.render('user/user-index', {
+        auth: req.user ? true : false,
+        user: req.user,
+        flashcards,
+      });
+    }).catch(err => next(err));
 };
 
 usersController.create = (req, res, next) => {
@@ -24,9 +30,7 @@ usersController.create = (req, res, next) => {
         res.redirect('/user');
       });
     })
-    .catch(err => {
-      return next(err);
-    });
+    .catch(err => next(err));
 };
 
 module.exports = usersController;
