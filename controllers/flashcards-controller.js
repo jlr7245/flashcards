@@ -3,7 +3,7 @@ const categoryLookup = require('./category-lookup');
 
 const flashcardsController = {};
 
-flashcardsController.index = (req, res) => {
+flashcardsController.index = (req, res, next) => {
   Flashcard.findAll()
     .then(flashcards => {
       res.status(200).render('flashcards/flashcards-index', {
@@ -14,7 +14,7 @@ flashcardsController.index = (req, res) => {
     .catch(err => next(err));
 };
 
-flashcardsController.show = (req, res) => {
+flashcardsController.show = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-show', {
@@ -25,7 +25,7 @@ flashcardsController.show = (req, res) => {
     .catch(err => next(err));
 };
 
-flashcardsController.category = (req, res) => {
+flashcardsController.category = (req, res, next) => {
   Flashcard.findByCategory(categoryLookup[req.params.category])
     .then(flashcards => {
       res.status(200).render('flashcards/flashcards-index', {
@@ -36,7 +36,7 @@ flashcardsController.category = (req, res) => {
     .catch(err => next(err));
 };
 
-flashcardsController.create = (req, res) => {
+flashcardsController.create = (req, res, next) => {
   new Flashcard({
     question: req.body.question,
     answer: req.body.answer,
@@ -45,12 +45,13 @@ flashcardsController.create = (req, res) => {
   })
     .save()
     .then(flashcard => {
-      res.redirect(`/flashcards/${flashcard.id}`);
+      res.locals.flashcard = flashcard;
+      next();
     })
     .catch(err => next(err));
 };
 
-flashcardsController.edit = (req, res) => {
+flashcardsController.edit = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-edit', {
@@ -61,7 +62,7 @@ flashcardsController.edit = (req, res) => {
     .catch(err => next(err));
 };
 
-flashcardsController.update = (req, res) => {
+flashcardsController.update = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .modify({
       question: req.body.question,
@@ -76,10 +77,21 @@ flashcardsController.update = (req, res) => {
     .catch(err => next(err));
 };
 
-flashcardsController.delete = (req, res) => {
+flashcardsController.delete = (req, res, next) => {
   Flashcard.destroy(req.params.id)
     .then(() => {
       res.redirect('/flashcards');
+    })
+    .catch(err => next(err));
+};
+
+flashcardsController.createKeywordsFlashcards = (req, res, next) => {
+  console.log(res.locals.flashcard instanceof Flashcard);
+  new Flashcard(res.locals.flashcard)
+    .relateKeywords(res.locals.keywordsFromDb)
+    .then(keywordsFlashcards => {
+      console.log(keywordsFlashcards);
+      res.redirect(`/flashcards/${res.locals.flashcard.id}`);
     })
     .catch(err => next(err));
 };

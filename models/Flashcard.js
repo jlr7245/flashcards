@@ -75,6 +75,23 @@ class Flashcard {
     );
   }
 
+  relateKeywords(keywords) {
+    return db.tx(t => {
+      const queries = keywords.map(keyword => {
+        return db.one(
+          `
+          INSERT INTO keywords_flashcards
+          (kw_id, fc_id)
+          VALUES ($1, $2)
+          RETURNING *
+        `,
+          [keyword.id, this.id]
+        );
+      });
+      return t.batch(queries);
+    });
+  }
+
   static destroy(id) {
     return db.none(
       `DELETE FROM flashcards
