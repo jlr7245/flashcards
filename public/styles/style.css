@@ -146,6 +146,11 @@ header nav ul li a {
   min-height: 100vh;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+.flashcard-single-container .flashcard {
+  flex: 0;
 }
 
 p.question {

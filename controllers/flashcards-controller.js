@@ -16,11 +16,13 @@ flashcardsController.index = (req, res, next) => {
 
 flashcardsController.show = (req, res, next) => {
   Flashcard.findById(req.params.id)
+    .then(flashcard => flashcard.keywords())
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-show', {
         auth: req.user ? true : false,
         current_user: req.user,
         flashcard,
+        keywords: flashcard.keywords,
       });
     })
     .catch(err => next(err));

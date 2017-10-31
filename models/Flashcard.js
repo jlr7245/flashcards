@@ -15,16 +15,11 @@ class Flashcard {
   }
 
   static findById(id) {
-    return db.one(
-        `
+    return db.one(`
       SELECT * FROM flashcards
       WHERE id = $1
-    `,
-        [id]
-      )
-      .then(flashcard => {
-        return new Flashcard(flashcard);
-      });
+    `, [id])
+      .then(flashcard => new Flashcard(flashcard));
   }
 
   static findByCategory(category) {
@@ -55,8 +50,7 @@ class Flashcard {
   }
 
   update() {
-    return db.one(
-      `
+    return db.one(`
       UPDATE flashcards SET
       question = $1,
       answer = $2,
@@ -64,30 +58,38 @@ class Flashcard {
       difficulty = $4
       WHERE id = $5
       RETURNING *
-    `,
-      [
+    `, [
         this.question,
         this.answer,
         this.category,
         this.difficulty,
         this.user_id,
         this.id,
-      ]
-    );
+      ]);
+  }
+
+  keywords() {
+    return db.manyOrNone(`
+      SELECT keywords.* FROM keywords
+      JOIN flashcards_keywords ON flashcards_keywords.kw_id = keywords.id
+      JOIN flashcards ON flashcards.id = flashcards_keywords.fc_id
+      WHERE flashcards.id = $1
+    `, [this.id])
+      .then(keywords => {
+        this.keywords = keywords;
+        return this;
+      });
   }
 
   relateKeywords(keywords) {
     return db.tx(t => {
       const queries = keywords.map(keyword => {
-        return db.one(
-          `
+        return db.one(`
           INSERT INTO flashcards_keywords
           (kw_id, fc_id)
           VALUES ($1, $2)
           RETURNING *
-        `,
-          [keyword.id, this.id]
-        );
+        `, [keyword.id, this.id]);
       });
       return t.batch(queries);
     });

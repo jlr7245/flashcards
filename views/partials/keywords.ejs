@@ -1,0 +1,7 @@
+<div class="keywords">
+  <% keywords.forEach(keyword => { %>
+    <a href="/keywords/<%=keyword.id%>">
+      <div class="keyword"><%= keyword.word %>: <%= keyword.counter %></div>
+    </a>
+  <% }) %>
+</div>

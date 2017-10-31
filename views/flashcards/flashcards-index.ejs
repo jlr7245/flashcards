@@ -1,10 +1,6 @@
 <% include ../partials/boilerplate %>
 
-<div class="keywords">
-  <% keywords.forEach(keyword => { %>
-    <div class="keyword"><%= keyword.word %>: <%= keyword.counter %></div>
-  <% }) %>
-</div>
+<% include ../partials/keywords %>
 
 <% include ../partials/flashcards-list %>
 

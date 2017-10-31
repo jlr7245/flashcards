@@ -41,6 +41,8 @@ app.get('/', (req, res) => {
 
 const flashcardsRouter = require('./routes/flashcards-routes');
 app.use('/flashcards', flashcardsRouter);
+const keywordsRouter = require('./routes/keyword-routes');
+app.use('/keywords', keywordsRouter);
 const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
 const userRoutes = require('./routes/user-routes');
