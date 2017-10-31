@@ -1,0 +1,17 @@
+<div class="quiz-creator">
+  <form class="quiz-form">
+    <input type="text" name="name" placeholder="Name" />
+    <input type="text" name="description" placeholder="Description" />
+    <div class="public-private">
+      <input type="radio" name="public" value="TRUE" /> Public
+      <input type="radio" name="public" value="FALSE" /> Private
+    </div>
+    <input id="flashcardids" type="hidden" name="flashcards" />
+    <input type="submit" value="Create Quiz!" />
+  </form>
+  <div class="explanation">
+    <p>Click on every flashcard you'd like to add to your quiz. When you're finished, submit the form to create your quiz!</p>
+  </div>
+</div>
+
+<script src='/src/quiz.js'></script>

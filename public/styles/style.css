@@ -184,12 +184,16 @@ p.question {
 form input[type=text], form input[type=number], form input[type=email], form input[type=password] {
   border: 0;
   border-bottom: 3px solid #eee;
-  font-size: 1.7em;
   margin: 20px 0;
+  font-size: 1em;
   padding: 5px;
   display: block;
-  width: 100%;
   transition: 0.3s;
+}
+
+.add form input[type=text], .add form input[type=number], .edit form input[type=text], .edit form input[type=number], .login form input[type=text], .register form input[type=text], form input[type=email], form input[type=password] {
+  width: 100%;
+  font-size: 1.7em;
 }
 
 form input[type=text]:focus, form input[type=number]:focus,
@@ -203,6 +207,17 @@ form input[type=email]:focus, form input[type=password]:focus {
   background-color: blue;
   display: block;
   margin: auto;
+  padding: 10px 30px;
+  font-size: 1.5em;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.quiz-creator form input[type=submit]  {
+  background-color: blue;
+  display: block;
   padding: 10px 30px;
   font-size: 1.5em;
   color: white;
@@ -251,5 +266,67 @@ form input[type=email]:focus, form input[type=password]:focus {
   border-radius: 20px;
   margin: 5px;
   font-size: 0.8em;
+}
+
+.quiz-creator {
+  background-color: rgba(255,255,255,0.95);
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.quiz-creator .quiz-form {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .quiz-creator .quiz-form {
+    flex-direction: column;
+  }
+}
+
+.explanation {
+  text-align: center;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.createquizbutton {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#createquiz {
+  font-size: 2em;
+  background-color: blue;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+#createquiz:hover {
+  transform: scale(1.2,1.2);
+}
+
+.quiz-add {
+  border: 3px solid red;
+  box-shadow: 0 0 10px #aaa;
+}
+
+.pointer {
+  cursor: pointer;
 }
 

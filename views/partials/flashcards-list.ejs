@@ -1,6 +1,6 @@
 <div class="flashcard-container">
 <% flashcards.forEach(flashcard => { %>
-  <div class="flashcard">
+  <div class="flashcard" data-id="<%= flashcard.id %>" data-inlist="false">
     <div class="meta">
       <span class="category"><%= flashcard.category %></span>
       <span class="difficulty">Difficulty: <%= flashcard.difficulty %></span>
