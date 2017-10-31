@@ -15,7 +15,7 @@ function reduceAndSetList() {
   document.querySelector('#flashcardids').value = stringOfIds;
 }
 
-function addToList(flashcard) {
+function toggleList(flashcard) {
   if (!trueOrFalse[flashcard.dataset.inlist]) {
     list.push({ id: flashcard.dataset.id, inList: true });
     flashcard.classList.add('quiz-add');
@@ -32,13 +32,12 @@ function addToList(flashcard) {
 }
 
 function setUpForQuiz() {
-  console.log('setup');
   const quizBar = document.querySelector('.quiz-creator');
   quizBar.style.display = 'flex';
   const flashcards = document.querySelectorAll('.flashcard');
   flashcards.forEach(flashcard => {
     flashcard.classList.add('pointer');
-    flashcard.addEventListener('click', () => addToList(flashcard));
+    flashcard.addEventListener('click', () => toggleList(flashcard));
   });
 }
 
