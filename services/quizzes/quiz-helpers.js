@@ -1,5 +1,5 @@
 function splitIds(req, res, next) {
-  res.locals.flashcards = req.body.flashcardids.split(',');
+  res.locals.flashcards = req.body.flashcards.split(',');
   next();
 }
 

@@ -43,6 +43,8 @@ const flashcardsRouter = require('./routes/flashcards-routes');
 app.use('/flashcards', flashcardsRouter);
 const keywordsRouter = require('./routes/keyword-routes');
 app.use('/keywords', keywordsRouter);
+const quizRouter = require('./routes/quiz-routes');
+app.use('/quizzes', quizRouter);
 const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
 const userRoutes = require('./routes/user-routes');

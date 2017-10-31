@@ -34,7 +34,7 @@ class Quiz {
     return db.one(`
       INSERT INTO quizzes
       (name, description, public, user_id)
-      VALUES ($1, $2, $3, $4, $5)
+      VALUES ($1, $2, $3, $4)
       RETURNING *
     `, [this.name, this.description, this.public, this.user_id])
       .then(quiz => this.modify(quiz))

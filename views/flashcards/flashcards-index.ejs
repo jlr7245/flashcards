@@ -1,12 +1,13 @@
 <% include ../partials/boilerplate %>
 
-
+<% if (auth) { %>
 <div class="createquizbutton">
   <span id="createquiz">Make a new quiz!</span>
 </div>
 
-
 <% include ../partials/quizbar %>
+
+<% } %>
 
 <% include ../partials/flashcards-list %>
 

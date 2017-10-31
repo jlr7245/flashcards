@@ -12,7 +12,7 @@ quizzesController.index = (req, res, next) => {
 quizzesController.public = (req, res, next) => {
   Quiz.findAllPublic()
     .then(quizzes => {
-      res.render('quizzes/quiz-index', {
+      res.json({
         auth: req.user ? true : false,
         quizzes,
       })
@@ -23,8 +23,7 @@ quizzesController.show = (req, res, next) => {
   Quiz.findById(req.params.id)
     .then(quiz => quiz.flashcards())
     .then(quiz => {
-      console.log(quiz);
-      res.render('quizzes/quiz-index', {
+      res.json({
         auth: req.user ? true : false,
         quiz,
         flashcards: quiz.cards,
@@ -41,7 +40,6 @@ quizzesController.create = (req, res, next) => {
   }).save()
     .then(quiz => quiz.relateFlashcards(res.locals.flashcards))
     .then(quiz => {
-      console.log(quiz);
       res.redirect(`/quizzes/${quiz.id}`);
     }).catch(err => next(err));
 };
