@@ -16,9 +16,7 @@ class User {
     `,
         [username]
       )
-      .then(user => {
-        return new User(user);
-      });
+      .then(user => new User(user));
   }
 
   save() {
@@ -30,7 +28,12 @@ class User {
       RETURNING *
     `,
       [this.username, this.email, this.password_digest]
-    );
+    ).then(user => this.modify(user));
+  }
+
+  modify(changes) {
+    Object.assign(this, changes);
+    return this;
   }
 
   flashcards() {

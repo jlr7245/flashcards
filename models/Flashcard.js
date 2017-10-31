@@ -1,5 +1,6 @@
 const db = require('../db/config');
 
+
 class Flashcard {
   constructor(flashcard) {
     this.id = flashcard.id;
@@ -45,9 +46,7 @@ class Flashcard {
       RETURNING *
     `,
       [this.question, this.answer, this.category, this.difficulty, this.user_id]
-    ).then(flashcard => {
-      return new Flashcard(flashcard);
-    });
+    ).then(flashcard => this.modify(flashcard));
   }
 
   modify(changes) {
