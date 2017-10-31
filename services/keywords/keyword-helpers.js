@@ -2,17 +2,17 @@ require('isomorphic-fetch');
 
 function getKeywords(req, res, next) {
   fetch('https://apiv2.indico.io/keywords?version=2', {
-    method: 'POST',
+    method:  'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       api_key: process.env.API_KEY,
-      data: req.body.question,
+      data:    req.body.question,
     }),
   })
     .then(fetchRes => fetchRes.json())
-    .then(jsonRes => {
+    .then((jsonRes) => {
       console.log(jsonRes);
       res.locals.initialData = jsonRes.results;
       next();
@@ -22,7 +22,7 @@ function getKeywords(req, res, next) {
 
 function formatApiData(req, res, next) {
   const keywords = [];
-  for (let key in res.locals.initialData) {
+  for (const key in res.locals.initialData) {
     keywords.push(key);
   }
   res.locals.keywords = keywords;
