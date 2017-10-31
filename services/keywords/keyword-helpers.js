@@ -7,12 +7,13 @@ function getKeywords(req, res, next) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      api_key: process.env.NODE_ENV,
+      api_key: process.env.API_KEY,
       data: req.body.question,
     }),
   })
     .then(fetchRes => fetchRes.json())
     .then(jsonRes => {
+      console.log(jsonRes);
       res.locals.initialData = jsonRes.results;
       next();
     })

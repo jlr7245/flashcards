@@ -27,7 +27,7 @@ class Keyword {
           INSERT INTO keywords
           (word, counter)
           VALUES ($1, 1)
-          ON CONFLICT DO UPDATE
+          ON CONFLICT (word) DO UPDATE
           SET counter = keywords.counter + 1
           RETURNING *
         `, [keyword]);

@@ -45,7 +45,9 @@ class Flashcard {
       RETURNING *
     `,
       [this.question, this.answer, this.category, this.difficulty, this.user_id]
-    );
+    ).then(flashcard => {
+      return new Flashcard(flashcard);
+    });
   }
 
   modify(changes) {
@@ -80,7 +82,7 @@ class Flashcard {
       const queries = keywords.map(keyword => {
         return db.one(
           `
-          INSERT INTO keywords_flashcards
+          INSERT INTO flashcards_keywords
           (kw_id, fc_id)
           VALUES ($1, $2)
           RETURNING *

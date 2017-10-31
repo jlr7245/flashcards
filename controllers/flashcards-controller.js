@@ -19,6 +19,7 @@ flashcardsController.show = (req, res, next) => {
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-show', {
         auth: req.user ? true : false,
+        current_user: req.user,
         flashcard,
       });
     })
@@ -42,6 +43,7 @@ flashcardsController.create = (req, res, next) => {
     answer: req.body.answer,
     category: req.body.category,
     difficulty: req.body.difficulty,
+    user_id: req.user.id,
   })
     .save()
     .then(flashcard => {
@@ -56,6 +58,7 @@ flashcardsController.edit = (req, res, next) => {
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-edit', {
         auth: req.user ? true : false,
+        current_user: req.user,
         flashcard,
       });
     })
@@ -86,8 +89,7 @@ flashcardsController.delete = (req, res, next) => {
 };
 
 flashcardsController.createKeywordsFlashcards = (req, res, next) => {
-  console.log(res.locals.flashcard instanceof Flashcard);
-  new Flashcard(res.locals.flashcard)
+  res.locals.flashcard
     .relateKeywords(res.locals.keywordsFromDb)
     .then(keywordsFlashcards => {
       console.log(keywordsFlashcards);
