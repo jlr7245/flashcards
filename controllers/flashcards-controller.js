@@ -22,7 +22,7 @@ flashcardsController.show = (req, res, next) => {
         auth: req.user ? true : false,
         current_user: (req.user) ? req.user.id : 0,
         flashcard,
-        keywords: flashcard.keywords,
+        keywords: flashcard.words,
       });
     })
     .catch(err => next(err));

@@ -75,7 +75,7 @@ class Flashcard {
       WHERE flashcards.id = $1
     `, [this.id])
       .then(keywords => {
-        this.keywords = keywords;
+        this.words = keywords;
         return this;
       });
   }
