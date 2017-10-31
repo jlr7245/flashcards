@@ -7,7 +7,11 @@ const keywordHelpers = require('../services/keywords/keyword-helpers');
 const flashcardsController = require('../controllers/flashcards-controller');
 const keywordsController = require('../controllers/keywords-controller');
 
-flashcardsRouter.get('/', flashcardsController.index);
+flashcardsRouter.get(
+  '/',
+  keywordsController.getAll,
+  flashcardsController.index
+);
 
 flashcardsRouter.get('/new', authHelpers.loginRequired, (req, res) => {
   res.render('flashcards/flashcards-new', {

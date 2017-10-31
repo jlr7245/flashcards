@@ -232,3 +232,19 @@ form input[type=email]:focus, form input[type=password]:focus {
   line-height: 1.4em;
 }
 
+.keywords {
+  padding: 40px 80px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.keyword {
+  color: white;
+  background-color: blue;
+  padding: 3px 7px;
+  border-radius: 20px;
+  margin: 5px;
+  font-size: 0.8em;
+}
+

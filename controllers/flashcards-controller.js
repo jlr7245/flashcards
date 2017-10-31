@@ -58,7 +58,7 @@ flashcardsController.edit = (req, res, next) => {
     .then(flashcard => {
       res.status(200).render('flashcards/flashcards-edit', {
         auth: req.user ? true : false,
-        current_user: req.user,
+        current_user: (req.user) ? req.user.id : 0,
         flashcard,
       });
     })
@@ -92,7 +92,6 @@ flashcardsController.createKeywordsFlashcards = (req, res, next) => {
   res.locals.flashcard
     .relateKeywords(res.locals.keywordsFromDb)
     .then(keywordsFlashcards => {
-      console.log(keywordsFlashcards);
       res.redirect(`/flashcards/${res.locals.flashcard.id}`);
     })
     .catch(err => next(err));

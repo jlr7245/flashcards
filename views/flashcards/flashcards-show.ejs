@@ -7,7 +7,7 @@
     <div class="meta">
       <span class="category"><%= flashcard.category %></span>
       <span class="difficulty">Difficulty: <%= flashcard.difficulty %></span>
-      <% if (current_user.id === flashcard.user_id) { %>
+      <% if (current_user === flashcard.user_id) { %>
         <a class="editlink" href="/flashcards/<%=flashcard.id%>/edit">Edit</a>
         <form class="delete" action="/flashcards/<%= flashcard.id%>?_method=DELETE" method="POST">
             <input class="dellink" type="submit" value="Delete">
