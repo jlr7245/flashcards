@@ -9,42 +9,36 @@ class User {
   }
 
   static findByUserName(username) {
-    return db.one(
-        `
+    return db.one(`
       SELECT * FROM users
       WHERE username = $1
       ORDER BY id ASC;
-    `,
-        [username]
-      )
+    `, username)
       .then(user => new User(user));
   }
 
   save() {
-    return db.one(
-      `
-      INSERT INTO users
-      (username, email, password_digest)
-      VALUES ($1, $2, $3)
+    return db.one(`
+      INSERT INTO users (
+        username, email, password_digest
+      ) VALUES (
+        $/username/, $/email/, $/password_digest/
+      )
       RETURNING *
-    `,
-      [this.username, this.email, this.password_digest]
-    ).then(user => this.modify(user));
+    `, this)
+    .then(user => this.modify(user));
   }
 
   modify(changes) {
-    Object.assign(this, changes);
-    return this;
+    return Object.assign(this, changes);
   }
 
   flashcards() {
-    return db.manyOrNone(
-      ` 
-      SELECT * FROM flashcards
-      WHERE user_id = $1
-    `,
-      [this.id]
-    );
+    return db.many(`
+      SELECT *
+      FROM flashcards
+      WHERE user_id = $/id/
+    `, this);
   }
 }
 

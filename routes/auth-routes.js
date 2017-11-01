@@ -1,26 +1,28 @@
-const express = require('express');
-const authRouter = express.Router();
-const passport = require('../services/auth/local');
-const authHelpers = require('../services/auth/auth-helpers');
+const express         = require('express');
+const passport        = require('../services/auth/local');
+const authHelpers     = require('../services/auth/auth-helpers');
 const usersController = require('../controllers/users-controller');
+
+const authRouter = express.Router();
 
 authRouter.get('/login', authHelpers.loginRedirect, (req, res) => {
   res.render('auth/login', {
-    auth: req.user ? true : false,
+    auth: !!req.user,
   });
 });
+
 authRouter.post(
   '/login',
   passport.authenticate('local', {
     successRedirect: '/user',
     failureRedirect: '/auth/login',
-    failureFlash: true,
-  })
+    failureFlash:    true,
+  }),
 );
 
 authRouter.get('/register', authHelpers.loginRedirect, (req, res) => {
   res.render('auth/register', {
-    auth: req.user ? true : false,
+    auth: !!req.user,
   });
 });
 authRouter.post('/register', usersController.create);

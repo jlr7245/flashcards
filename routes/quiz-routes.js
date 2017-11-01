@@ -1,11 +1,13 @@
-const express = require('express');
-const quizRouter = express.Router();
+const express           = require('express');
 const quizzesController = require('../controllers/quizzes-controller');
+const quizHelpers       = require('../services/quizzes/quiz-helpers');
 
-const quizHelpers = require('../services/quizzes/quiz-helpers');
+const quizRouter = express.Router();
 
-quizRouter.get('/', quizzesController.public);
-quizRouter.post('/', quizHelpers.splitIds, quizzesController.create);
+
+quizRouter.route('/')
+  .get(quizzesController.public)
+  .post(quizHelpers.splitIds, quizzesController.create);
 
 quizRouter.get('/:id', quizzesController.show);
 
