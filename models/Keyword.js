@@ -2,7 +2,7 @@ const db = require('../db/config');
 
 class Keyword {
   constructor(keyword) {
-    this.id = keyword.id,
+    this.id = keyword.id;
     this.word = keyword.word;
     this.counter = keyword.counter;
   }
@@ -13,17 +13,16 @@ class Keyword {
 
   static findById(id) {
     return db.one(`
-      SELECT * FROM keywords
-      WHERE id = $1
-    `, [id]).then(keyword => {
-      return new Keyword(keyword);
-    });
+      SELECT * 
+        FROM keywords
+       WHERE id = $1
+    `, [id]).then(keyword => new Keyword(keyword));
   }
 
   static upsertSeveral(keywords) {
-    return db.tx(t => {
-      const queries = keywords.map(keyword => {
-        return db.one(`
+    return db.tx((t) => {
+      const queries = keywords.map((keyword) => {
+        return t.one(`
           INSERT INTO keywords
           (word, counter)
           VALUES ($1, 1)
@@ -38,17 +37,19 @@ class Keyword {
 
   flashcards() {
     return db.manyOrNone(`
-      SELECT flashcards.* FROM flashcards
-      JOIN flashcards_keywords ON flashcards_keywords.fc_id = flashcards.id
-      JOIN keywords ON keywords.id = flashcards_keywords.kw_id
-      WHERE keywords.id = $1
+      SELECT flashcards.* 
+        FROM flashcards
+        JOIN flashcards_keywords 
+             ON flashcards_keywords.fc_id = flashcards.id
+        JOIN keywords 
+             ON keywords.id = flashcards_keywords.kw_id
+       WHERE keywords.id = $1
     `, [this.id])
-      .then(flashcards => {
+      .then((flashcards) => {
         this.flashcards = flashcards;
         return this;
-      })
+      });
   }
-
 }
 
 module.exports = Keyword;
