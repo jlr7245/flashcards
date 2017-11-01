@@ -1,7 +1,7 @@
-const express = require('express');
-const keywordsRouter = express.Router();
-
+const express            = require('express');
 const keywordsController = require('../controllers/keywords-controller');
+
+const keywordsRouter = express.Router();
 
 keywordsRouter.get('/', (req, res) => {
   res.redirect('/flashcards');
