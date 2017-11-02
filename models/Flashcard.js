@@ -61,7 +61,7 @@ class Flashcard {
   }
 
   keywords() {
-    return db.many(`
+    return db.manyOrNone(`
       SELECT keywords.*
         FROM keywords
         JOIN flashcards_keywords
