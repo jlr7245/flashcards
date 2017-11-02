@@ -1,13 +1,13 @@
-const Flashcard = require('../models/flashcard');
+const Flashcard = require('../models/Flashcard');
 const categoryLookup = require('./category-lookup');
 
 const flashcardsController = {};
 
 flashcardsController.index = (req, res, next) => {
   Flashcard.findAll()
-    .then(flashcards => {
+    .then((flashcards) => {
       res.status(200).render('flashcards/flashcards-index', {
-        auth: req.user ? true : false,
+        auth: !!req.user,
         flashcards,
       });
     })
@@ -17,9 +17,9 @@ flashcardsController.index = (req, res, next) => {
 flashcardsController.show = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .then(flashcard => flashcard.keywords())
-    .then(flashcard => {
+    .then((flashcard) => {
       res.status(200).render('flashcards/flashcards-show', {
-        auth: req.user ? true : false,
+        auth: !!req.user,
         current_user: (req.user) ? req.user.id : 0,
         flashcard,
         keywords: flashcard.words,
@@ -30,9 +30,9 @@ flashcardsController.show = (req, res, next) => {
 
 flashcardsController.category = (req, res, next) => {
   Flashcard.findByCategory(categoryLookup[req.params.category])
-    .then(flashcards => {
+    .then((flashcards) => {
       res.status(200).render('flashcards/flashcards-index', {
-        auth: req.user ? true : false,
+        auth: !!req.user,
         flashcards,
       });
     })
@@ -48,7 +48,7 @@ flashcardsController.create = (req, res, next) => {
     user_id: req.user.id,
   })
     .save()
-    .then(flashcard => {
+    .then((flashcard) => {
       res.locals.flashcard = flashcard;
       next();
     })
@@ -57,9 +57,9 @@ flashcardsController.create = (req, res, next) => {
 
 flashcardsController.edit = (req, res, next) => {
   Flashcard.findById(req.params.id)
-    .then(flashcard => {
+    .then((flashcard) => {
       res.status(200).render('flashcards/flashcards-edit', {
-        auth: req.user ? true : false,
+        auth: !!req.user,
         current_user: (req.user) ? req.user.id : 0,
         flashcard,
       });
@@ -69,16 +69,16 @@ flashcardsController.edit = (req, res, next) => {
 
 flashcardsController.update = (req, res, next) => {
   Flashcard.findById(req.params.id)
-    .then(flashcard => {
+    .then((flashcard) => {
       return flashcard.modify({
         question: req.body.question,
         answer: req.body.answer,
         category: req.body.category,
         difficulty: req.body.difficulty,
       })
-      .update();
+        .update();
     })
-    .then(flashcard => {
+    .then((flashcard) => {
       res.redirect(`/flashcards/${flashcard.id}`);
     })
     .catch(err => next(err));
@@ -95,7 +95,7 @@ flashcardsController.delete = (req, res, next) => {
 flashcardsController.createKeywordsFlashcards = (req, res, next) => {
   res.locals.flashcard
     .relateKeywords(res.locals.keywordsFromDb)
-    .then(keywordsFlashcards => {
+    .then((keywordsFlashcards) => {
       res.redirect(`/flashcards/${res.locals.flashcard.id}`);
     })
     .catch(err => next(err));

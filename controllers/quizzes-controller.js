@@ -4,27 +4,27 @@ const quizzesController = {};
 
 quizzesController.index = (req, res, next) => {
   Quiz.findAll()
-    .then(quizzes => {
+    .then((quizzes) => {
       res.json(quizzes);
     }).catch(err => next(err));
 };
 
 quizzesController.public = (req, res, next) => {
   Quiz.findAllPublic()
-    .then(quizzes => {
+    .then((quizzes) => {
       res.json({
-        auth: req.user ? true : false,
+        auth: !!req.user,
         quizzes,
-      })
+      });
     }).catch(err => next(err));
 };
 
 quizzesController.show = (req, res, next) => {
   Quiz.findById(req.params.id)
     .then(quiz => quiz.flashcards())
-    .then(quiz => {
+    .then((quiz) => {
       res.json({
-        auth: req.user ? true : false,
+        auth: !!req.user,
         quiz,
         flashcards: quiz.cards,
       });
@@ -39,9 +39,10 @@ quizzesController.create = (req, res, next) => {
     user_id: req.user.id,
   }).save()
     .then(quiz => quiz.relateFlashcards(res.locals.flashcards))
-    .then(quiz => {
+    .then((quiz) => {
       res.redirect(`/quizzes/${quiz.id}`);
-    }).catch(err => next(err));
+    })
+    .catch(err => next(err));
 };
 
 module.exports = quizzesController;

@@ -6,9 +6,9 @@ const usersController = {};
 usersController.index = (req, res, next) => {
   new User(req.user)
     .flashcards()
-    .then(flashcards => {
+    .then((flashcards) => {
       res.render('user/user-index', {
-        auth: req.user ? true : false,
+        auth: !!req.user,
         user: req.user,
         flashcards,
       });
@@ -24,10 +24,10 @@ usersController.create = (req, res, next) => {
     password_digest: hash,
   })
     .save()
-    .then(user => {
-      req.login(user, err => {
+    .then((user) => {
+      req.login(user, (err) => {
         if (err) return next(err);
-        res.redirect('/user');
+        return res.redirect('/user');
       });
     })
     .catch(err => next(err));
