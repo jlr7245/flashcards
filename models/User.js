@@ -26,7 +26,7 @@ class User {
       )
       RETURNING *
     `, this)
-    .then(user => this.modify(user));
+      .then(user => this.modify(user));
   }
 
   modify(changes) {
@@ -34,7 +34,7 @@ class User {
   }
 
   flashcards() {
-    return db.many(`
+    return db.manyOrNone(`
       SELECT *
       FROM flashcards
       WHERE user_id = $/id/

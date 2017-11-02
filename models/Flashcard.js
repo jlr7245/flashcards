@@ -11,7 +11,7 @@ class Flashcard {
     this.user_id = flashcard.user_id;
   }
   static findAll() {
-    return db.many('SELECT * FROM flashcards ORDER BY id ASC');
+    return db.manyOrNone('SELECT * FROM flashcards ORDER BY id ASC');
   }
 
   static findById(id) {
@@ -23,7 +23,7 @@ class Flashcard {
   }
 
   static findByCategory(category) {
-    return db.many(`
+    return db.manyOrNone(`
       SELECT * FROM flashcards
       WHERE category = $1
     `, category);
