@@ -15,7 +15,7 @@ flashcardsRouter.get('/new', authHelpers.loginRequired, (req, res) => {
 flashcardsRouter.get(
   '/:id(\\d+)/edit',
   authHelpers.loginRequired,
-  flashcardsController.edit,
+  flashcardsController.edit
 );
 
 
@@ -25,17 +25,17 @@ flashcardsRouter.route('/:id(\\d+)')
   .get(flashcardsController.show)
   .put(
     authHelpers.loginRequired,
-    flashcardsController.update,
+    flashcardsController.update
   )
   .delete(
     authHelpers.loginRequired,
-    flashcardsController.delete,
+    flashcardsController.delete
   );
 
 flashcardsRouter.route('/')
   .get(
     keywordsController.getAll,
-    flashcardsController.index,
+    flashcardsController.index
   )
   .post(
     authHelpers.loginRequired,
@@ -43,7 +43,7 @@ flashcardsRouter.route('/')
     keywordHelpers.formatApiData,
     flashcardsController.create,
     keywordsController.createOrUpdate,
-    flashcardsController.createKeywordsFlashcards,
+    flashcardsController.createKeywordsFlashcards
   );
 
 module.exports = flashcardsRouter;

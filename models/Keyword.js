@@ -16,7 +16,7 @@ class Keyword {
       SELECT * 
         FROM keywords
        WHERE id = $1
-    `, [id]).then(keyword => new Keyword(keyword));
+    `, id).then(keyword => new Keyword(keyword));
   }
 
   static upsertSeveral(keywords) {
@@ -29,7 +29,7 @@ class Keyword {
           ON CONFLICT (word) DO UPDATE
           SET counter = keywords.counter + 1
           RETURNING *
-        `, [keyword]);
+        `, keyword);
       });
       return t.batch(queries);
     });
@@ -44,9 +44,9 @@ class Keyword {
         JOIN keywords 
              ON keywords.id = flashcards_keywords.kw_id
        WHERE keywords.id = $1
-    `, [this.id])
+    `, this.id)
       .then((flashcards) => {
-        this.flashcards = flashcards;
+        this.cards = flashcards;
         return this;
       });
   }

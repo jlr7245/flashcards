@@ -17,7 +17,7 @@ authRouter.post(
     successRedirect: '/user',
     failureRedirect: '/auth/login',
     failureFlash:    true,
-  }),
+  })
 );
 
 authRouter.get('/register', authHelpers.loginRedirect, (req, res) => {

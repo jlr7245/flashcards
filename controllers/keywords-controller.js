@@ -1,10 +1,10 @@
-const Keyword = require('../models/keyword');
+const Keyword = require('../models/Keyword');
 
 const keywordsController = {};
 
 keywordsController.getAll = (req, res, next) => {
   Keyword.findAll()
-    .then(keywords => {
+    .then((keywords) => {
       res.locals.keywords = keywords;
       next();
     })
@@ -14,18 +14,18 @@ keywordsController.getAll = (req, res, next) => {
 keywordsController.show = (req, res, next) => {
   Keyword.findById(req.params.id)
     .then(keyword => keyword.flashcards())
-    .then(keyword => {
+    .then((keyword) => {
       res.render('keywords/keywords-show', {
-        auth: req.user ? true : false,
+        auth: !!req.user,
         keyword,
-        flashcards: keyword.flashcards,
-      })
+        flashcards: keyword.cards,
+      });
     }).catch(err => next(err));
-}
+};
 
 keywordsController.createOrUpdate = (req, res, next) => {
   Keyword.upsertSeveral(res.locals.keywords)
-    .then(keywords => {
+    .then((keywords) => {
       res.locals.keywordsFromDb = keywords;
       next();
     })
