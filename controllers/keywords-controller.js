@@ -13,7 +13,7 @@ keywordsController.getAll = (req, res, next) => {
 
 keywordsController.show = (req, res, next) => {
   Keyword.findById(req.params.id)
-    .then(keyword => keyword.flashcards())
+    .then(keyword => new Keyword(keyword).flashcards())
     .then((keyword) => {
       res.render('keywords/keywords-show', {
         auth: !!req.user,

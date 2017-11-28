@@ -1,4 +1,4 @@
-const Flashcard = require('../models/Flashcard2');
+const Flashcard = require('../models/Flashcard');
 const categoryLookup = require('./category-lookup');
 
 const flashcardsController = {};
@@ -40,7 +40,6 @@ flashcardsController.category = (req, res, next) => {
 };
 
 flashcardsController.create = (req, res, next) => {
-  console.log(req.user);
   new Flashcard({
     question: req.body.question,
     answer: req.body.answer,
