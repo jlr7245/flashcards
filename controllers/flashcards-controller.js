@@ -1,4 +1,4 @@
-const Flashcard = require('../models/Flashcard');
+const Flashcard = require('../models/Flashcard2');
 const categoryLookup = require('./category-lookup');
 
 const flashcardsController = {};
@@ -11,12 +11,12 @@ flashcardsController.index = (req, res, next) => {
         flashcards,
       });
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.show = (req, res, next) => {
   Flashcard.findById(req.params.id)
-    .then(flashcard => flashcard.keywords())
+    .then(flashcard => new Flashcard(flashcard).keywords())
     .then((flashcard) => {
       res.status(200).render('flashcards/flashcards-show', {
         auth: !!req.user,
@@ -25,7 +25,7 @@ flashcardsController.show = (req, res, next) => {
         keywords: flashcard.words,
       });
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.category = (req, res, next) => {
@@ -36,10 +36,11 @@ flashcardsController.category = (req, res, next) => {
         flashcards,
       });
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.create = (req, res, next) => {
+  console.log(req.user);
   new Flashcard({
     question: req.body.question,
     answer: req.body.answer,
@@ -52,7 +53,7 @@ flashcardsController.create = (req, res, next) => {
       res.locals.flashcard = flashcard;
       next();
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.edit = (req, res, next) => {
@@ -64,24 +65,22 @@ flashcardsController.edit = (req, res, next) => {
         flashcard,
       });
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.update = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .then((flashcard) => {
-      return flashcard.modify({
+      return new Flashcard(flashcard).update({
         question: req.body.question,
         answer: req.body.answer,
         category: req.body.category,
         difficulty: req.body.difficulty,
       })
-        .update();
-    })
-    .then((flashcard) => {
+    }).then((flashcard) => {
       res.redirect(`/flashcards/${flashcard.id}`);
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.delete = (req, res, next) => {
@@ -89,7 +88,7 @@ flashcardsController.delete = (req, res, next) => {
     .then(() => {
       res.redirect('/flashcards');
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 flashcardsController.createKeywordsFlashcards = (req, res, next) => {
@@ -98,7 +97,7 @@ flashcardsController.createKeywordsFlashcards = (req, res, next) => {
     .then((keywordsFlashcards) => {
       res.redirect(`/flashcards/${res.locals.flashcard.id}`);
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 module.exports = flashcardsController;
