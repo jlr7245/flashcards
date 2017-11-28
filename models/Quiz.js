@@ -23,7 +23,7 @@ Quiz.prototype.save = function() {
     VALUES ($/name/, $/description/, $/public/, $/user_id/)
     RETURNING *
   `, this)
-  .then(quiz => this.modify(quiz))
+  .then(quiz => this.modify(quiz));
 }
 
 Quiz.prototype.relateFlashcards = function(flashcards) {
@@ -36,10 +36,10 @@ Quiz.prototype.relateFlashcards = function(flashcards) {
     `, [this.id, flashcard]));
     return t.batch(queries);
   })
-    .then((quizzesFlashcards) => {
-      this.quizzesFlashcards = quizzesFlashcards;
-      return this;
-    })
+  .then((quizzesFlashcards) => {
+    this.quizzesFlashcards = quizzesFlashcards;
+    return this;
+  });
 }
 
 Quiz.prototype.flashcards = function() {
@@ -55,7 +55,7 @@ Quiz.prototype.flashcards = function() {
   .then((flashcards) => {
     this.cards = flashcards;
     return this;
-  })
+  });
 }
 
 module.exports = Quiz;

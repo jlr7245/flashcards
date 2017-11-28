@@ -8,7 +8,7 @@ keywordsController.getAll = (req, res, next) => {
       res.locals.keywords = keywords;
       next();
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 keywordsController.show = (req, res, next) => {
@@ -20,7 +20,7 @@ keywordsController.show = (req, res, next) => {
         keyword,
         flashcards: keyword.cards,
       });
-    }).catch(err => next(err));
+    }).catch(next);
 };
 
 keywordsController.createOrUpdate = (req, res, next) => {
@@ -29,7 +29,7 @@ keywordsController.createOrUpdate = (req, res, next) => {
       res.locals.keywordsFromDb = keywords;
       next();
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 module.exports = keywordsController;

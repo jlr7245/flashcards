@@ -6,10 +6,8 @@ function Flashcard(card) {
   this.answer = this.validate(card.answer, 'answer');
   this.difficulty = this.validate(card.difficulty, 'difficulty');
   this.category = this.validate(card.category, 'category');
-  this.user_id = this.validate(card.user_id, 'user id')
+  this.user_id = this.validate(card.user_id, 'user id');
 }
-
-Flashcard.prototype = Object.assign(Flashcard.prototype, require('./utils'));
 
 const flashcardStatics = require('./model-defaults')('flashcards');
 flashcardStatics.findByCategory = (category) => {
@@ -20,6 +18,7 @@ flashcardStatics.findByCategory = (category) => {
 }
 Object.setPrototypeOf(Flashcard, flashcardStatics);
 
+Flashcard.prototype = Object.assign(Flashcard.prototype, require('./utils'));
 
 Flashcard.prototype.save = function() {
   return db.one(`

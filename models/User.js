@@ -13,7 +13,7 @@ userStatics.findByUserName = (username) => {
     SELECT * FROM users
     WHERE username = $1
     ORDER BY id ASC
-  `, username)
+  `, username);
 }
 Object.setPrototypeOf(User, userStatics);
 
