@@ -21,12 +21,11 @@ quizzesController.public = (req, res, next) => {
 
 quizzesController.show = (req, res, next) => {
   Quiz.findById(req.params.id)
-    .then(quiz => quiz.flashcards())
+    .then(quiz => new Quiz(quiz).flashcards())
     .then((quiz) => {
       res.json({
         auth: !!req.user,
         quiz,
-        flashcards: quiz.cards,
       });
     }).catch(err => next(err));
 };
