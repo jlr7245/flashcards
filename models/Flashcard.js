@@ -1,101 +1,77 @@
 const db = require('../db/config');
 
+function Flashcard(card) {
+  this.id = card.id || null;
+  this.question = this.validate(card.question, 'question');
+  this.answer = this.validate(card.answer, 'answer');
+  this.difficulty = this.validate(card.difficulty, 'difficulty');
+  this.category = this.validate(card.category, 'category');
+  this.user_id = this.validate(card.user_id, 'user id')
+}
 
-class Flashcard {
-  constructor(flashcard) {
-    this.id = flashcard.id;
-    this.question = flashcard.question;
-    this.answer = flashcard.answer;
-    this.category = flashcard.category;
-    this.difficulty = flashcard.difficulty;
-    this.user_id = flashcard.user_id;
-  }
-  static findAll() {
-    return db.manyOrNone('SELECT * FROM flashcards ORDER BY id ASC');
-  }
+Flashcard.prototype = Object.assign(Flashcard.prototype, require('./utils'));
 
-  static findById(id) {
-    return db.one(`
-      SELECT * FROM flashcards
-      WHERE id = $1
-    `, id)
-      .then(flashcard => new Flashcard(flashcard));
-  }
+const flashcardStatics = require('./model-defaults')('flashcards');
+flashcardStatics.findByCategory = (category) => {
+  return db.manyOrNone(`
+    SELECT * FROM flashcards
+    WHERE category = $1
+  `, category);
+}
+Object.setPrototypeOf(Flashcard, flashcardStatics);
 
-  static findByCategory(category) {
-    return db.manyOrNone(`
-      SELECT * FROM flashcards
-      WHERE category = $1
-    `, category);
-  }
 
-  save() {
-    return db.one(`
-      INSERT INTO flashcards(
-        question, answer, category, difficulty, user_id
-      ) VALUES (
-        $/question/, $/answer/, $/category/, $/difficulty/, $/user_id/
-      )
-      RETURNING *
-    `, this)
-      .then(flashcard => this.modify(flashcard));
-  }
+Flashcard.prototype.save = function() {
+  return db.one(`
+    INSERT INTO flashcards
+    (question, answer, difficulty, category, user_id)
+    VALUES ($/question/, $/answer/, $/difficulty/, $/category/, $/user_id/)
+    RETURNING *
+  `, this)
+    .then(flashcard => this.modify(flashcard));
+}
 
-  modify(changes) {
-    return Object.assign(this, changes);
-  }
+Flashcard.prototype.update = function(changes) {
+  this.modify(changes);
+  return db.one(`
+    UPDATE flashcards SET
+    question = $/question/,
+    answer = $/answer/,
+    difficulty = $/difficulty/,
+    category = $/category/
+    WHERE id = $/id/
+    RETURNING *
+  `, this)
+    .then(flashcard => this.modify(flashcard));
+}
 
-  update() {
-    return db.one(`
-      UPDATE
-        flashcards
-      SET
-        question = $/question/,
-        answer = $/answer/,
-        category = $/category/,
-        difficulty = $/difficulty/
-        WHERE id = $/id/
-      RETURNING *
-    `, this)
-      .then(flashcard => this.modify(flashcard));
-  }
-
-  keywords() {
-    return db.manyOrNone(`
-      SELECT keywords.*
-        FROM keywords
-        JOIN flashcards_keywords
-              ON flashcards_keywords.kw_id = keywords.id
-        JOIN flashcards
-              ON flashcards.id = flashcards_keywords.fc_id
-       WHERE flashcards.id = $/id/
-    `, this)
-      .then((keywords) => {
-        this.words = keywords;
-        return this;
-      });
-  }
-
-  relateKeywords(keywords) {
-    return db.tx((t) => {
-      const queries = keywords.map((keyword) => {
-        return t.one(`
-          INSERT INTO flashcards_keywords
-          (kw_id, fc_id)
-          VALUES ($1, $2)
-          RETURNING *
-        `, [keyword.id, this.id]);
-      });
-      return t.batch(queries);
+Flashcard.prototype.keywords = function() {
+  return db.manyOrNone(
+    `SELECT keywords.*
+    FROM keywords
+    JOIN flashcards_keywords
+          ON flashcards_keywords.kw_id = keywords.id
+    JOIN flashcards
+          ON flashcards.id = flashcards_keywords.fc_id
+   WHERE flashcards.id = $/id/`, this)
+    .then(keywords => {
+      this.words = keywords;
+      return this;
     });
-  }
+}
 
-  static destroy(id) {
-    return db.none(`
-      DELETE FROM flashcards
-      WHERE id = $1
-    `, id);
-  }
+Flashcard.prototype.relateKeywords = function(keywords) {
+  return db.tx(t => {
+    const queries = keywords.map(keyword => {
+      return t.one(`
+        INSERT INTO flashcards_keywords
+        (kw_id, fc_id)
+        VALUES ($1, $2)
+        RETURNING *
+      `, [keyword.id, this.id])
+    });
+    return t.batch(queries);
+  });
 }
 
 module.exports = Flashcard;
