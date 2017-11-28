@@ -12,7 +12,7 @@ usersController.index = (req, res, next) => {
         user: req.user,
         flashcards,
       });
-    }).catch(err => next(err));
+    }).catch(next);
 };
 
 usersController.create = (req, res, next) => {
@@ -30,7 +30,7 @@ usersController.create = (req, res, next) => {
         return res.redirect('/user');
       });
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 module.exports = usersController;
