@@ -24,7 +24,7 @@ function Flashcard(card) {
 
 // attach the default model methods as static methods
 // and the utility 
-Flashcard.__proto__ = modelDefaults('flashcards');
+Object.setPrototypeOf(Flashcard, modelDefaults('flashcards'));
 Flashcard.prototype = Object.assign(Flashcard.prototype, utils);
 
 
@@ -33,4 +33,3 @@ Flashcard.findAll(); // `SELECT * FROM flashcards`
 const newFlashcard = new Flashcard({ question: 'aaa', answer: 'aaa' });
 newFlashcard.modify({ question: 'lsdjfslkdfjlksfd' });
 console.log(newFlashcard); // Flashcard { question: 'lsdjfslkdfjlksfd', answer: 'aaa' }
-
