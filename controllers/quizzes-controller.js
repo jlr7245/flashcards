@@ -6,7 +6,7 @@ quizzesController.index = (req, res, next) => {
   Quiz.findAll()
     .then((quizzes) => {
       res.json(quizzes);
-    }).catch(err => next(err));
+    }).catch(next);
 };
 
 quizzesController.public = (req, res, next) => {
@@ -16,19 +16,18 @@ quizzesController.public = (req, res, next) => {
         auth: !!req.user,
         quizzes,
       });
-    }).catch(err => next(err));
+    }).catch(next);
 };
 
 quizzesController.show = (req, res, next) => {
   Quiz.findById(req.params.id)
-    .then(quiz => quiz.flashcards())
+    .then(quiz => new Quiz(quiz).flashcards())
     .then((quiz) => {
       res.json({
         auth: !!req.user,
         quiz,
-        flashcards: quiz.cards,
       });
-    }).catch(err => next(err));
+    }).catch(next);
 };
 
 quizzesController.create = (req, res, next) => {
@@ -42,7 +41,7 @@ quizzesController.create = (req, res, next) => {
     .then((quiz) => {
       res.redirect(`/quizzes/${quiz.id}`);
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 module.exports = quizzesController;
