@@ -6,9 +6,9 @@ const flashcardsController = {};
 flashcardsController.index = (req, res, next) => {
   Flashcard.findAll()
     .then((flashcards) => {
-      res.status(200).render('flashcards/flashcards-index', {
+      res.status(200).json({
+        data: { flashcards },
         auth: !!req.user,
-        flashcards,
       });
     })
     .catch(next);
@@ -18,11 +18,12 @@ flashcardsController.show = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .then(flashcard => new Flashcard(flashcard).keywords())
     .then((flashcard) => {
-      res.status(200).render('flashcards/flashcards-show', {
+      res.status(200).json({
         auth: !!req.user,
-        current_user: (req.user) ? req.user.id : 0,
-        flashcard,
-        keywords: flashcard.words,
+        data: {
+          flashcard,
+          keywords: flashcard.words,
+        },
       });
     })
     .catch(next);
@@ -31,9 +32,9 @@ flashcardsController.show = (req, res, next) => {
 flashcardsController.category = (req, res, next) => {
   Flashcard.findByCategory(categoryLookup[req.params.category])
     .then((flashcards) => {
-      res.status(200).render('flashcards/flashcards-index', {
+      res.status(200).json({
         auth: !!req.user,
-        flashcards,
+        data: { flashcards },
       });
     })
     .catch(next);
@@ -58,10 +59,9 @@ flashcardsController.create = (req, res, next) => {
 flashcardsController.edit = (req, res, next) => {
   Flashcard.findById(req.params.id)
     .then((flashcard) => {
-      res.status(200).render('flashcards/flashcards-edit', {
+      res.status(200).json({
         auth: !!req.user,
-        current_user: (req.user) ? req.user.id : 0,
-        flashcard,
+        data: { flashcard },
       });
     })
     .catch(next);
@@ -91,7 +91,7 @@ flashcardsController.delete = (req, res, next) => {
 };
 
 flashcardsController.createKeywordsFlashcards = (req, res, next) => {
-  res.locals.flashcard
+  new Flashcard(res.locals.flashcard)
     .relateKeywords(res.locals.keywordsFromDb)
     .then((keywordsFlashcards) => {
       res.redirect(`/flashcards/${res.locals.flashcard.id}`);

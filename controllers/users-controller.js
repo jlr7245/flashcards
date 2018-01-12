@@ -7,10 +7,12 @@ usersController.index = (req, res, next) => {
   new User(req.user)
     .flashcards()
     .then((flashcards) => {
-      res.render('user/user-index', {
+      res.json({
         auth: !!req.user,
-        user: req.user,
-        flashcards,
+        data: {
+          user: req.user,
+          flashcards,
+        },
       });
     }).catch(next);
 };

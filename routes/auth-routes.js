@@ -5,31 +5,35 @@ const usersController = require('../controllers/users-controller');
 
 const authRouter = express.Router();
 
-authRouter.get('/login', authHelpers.loginRedirect, (req, res) => {
-  res.render('auth/login', {
-    auth: !!req.user,
-  });
-});
-
 authRouter.post(
   '/login',
   passport.authenticate('local', {
-    successRedirect: '/user',
-    failureRedirect: '/auth/login',
+    successRedirect: '/auth/verify',
+    failureRedirect: '/auth/verify',
     failureFlash:    true,
   })
 );
 
-authRouter.get('/register', authHelpers.loginRedirect, (req, res) => {
-  res.render('auth/register', {
-    auth: !!req.user,
-  });
+authRouter.get('/verify', (req, res) => {
+  if (req.user) {
+    res.json({
+      auth: !!req.user,
+      data: {
+        user: req.user,
+      },
+    });
+  } else {
+    res.json({
+      auth: !!req.user,
+    });
+  }
 });
+
 authRouter.post('/register', usersController.create);
 
 authRouter.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('back');
+  res.redirect('/auth/verify');
 });
 
 module.exports = authRouter;

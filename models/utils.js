@@ -6,4 +6,4 @@ module.exports = {
     if (property) return property;
     else throw new Error(`Missing property ${propType}`);
   },
-}
+};

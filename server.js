@@ -40,9 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.render('index', {
-    auth: !!req.user,
-  });
+  res.send('Hello WOrld!');
 });
 
 app.use('/flashcards', flashcardsRouter);

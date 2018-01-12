@@ -15,10 +15,12 @@ keywordsController.show = (req, res, next) => {
   Keyword.findById(req.params.id)
     .then(keyword => new Keyword(keyword).flashcards())
     .then((keyword) => {
-      res.render('keywords/keywords-show', {
+      res.json({
         auth: !!req.user,
-        keyword,
-        flashcards: keyword.cards,
+        data: {
+          keyword,
+          flashcards: keyword.cards,
+        },
       });
     }).catch(next);
 };
