@@ -4,5 +4,17 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+
+import FlashcardList from './components/FlashcardList';
+
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <FlashcardList />
+  </Provider>, document.getElementById('root')
+);
+
 registerServiceWorker();

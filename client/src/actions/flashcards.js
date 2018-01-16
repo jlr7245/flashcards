@@ -1,38 +1,39 @@
-import axios from 'axios';
 
-export const flashcardsHasErrored = (bool) => {
+export function flashcardsHasErrored(bool) {
   return {
     type: 'FLASHCARDS_HAS_ERRORED',
     hasErrored: bool,
   };
 };
 
-export const flashcardsIsLoading = (bool) => {
+export function flashcardsIsLoading(bool) {
   return {
     type: 'FLASHCARDS_IS_LOADING',
     isLoading: bool,
   };
 };
 
-export const flashcardsFetchDataSuccess = (flashcards) => {
+export function flashcardsFetchDataSuccess(flashcards) {
   return {
     type: 'FLASHCARDS_FETCH_DATA_SUCCESS',
     flashcards,
   };
 };
 
-export const flashcardsFetchData = (url) => {
+export function flashcardsFetchData(url) {
   return (dispatch) => {
     dispatch(flashcardsIsLoading(true));
-    axios.get(url)
-      .then((res) => {
-        if (res.statusText !== 'OK') {
-          throw Error(res.statusText);
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText)
         }
         dispatch(flashcardsIsLoading(false));
-        return dispatch(flashcardsFetchDataSuccess(res.data.data.flashcards));
+        return response;
       })
+      .then(response => response.json())
+      .then(response =>  dispatch(flashcardsFetchDataSuccess(response.data.flashcards)))
       .catch(() => dispatch(flashcardsHasErrored(true)));
-  };
-};
+  }
+}
 
