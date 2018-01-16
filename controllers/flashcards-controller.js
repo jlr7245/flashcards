@@ -75,7 +75,7 @@ flashcardsController.update = (req, res, next) => {
         answer: req.body.answer,
         category: req.body.category,
         difficulty: req.body.difficulty,
-      })
+      });
     }).then((flashcard) => {
       res.redirect(`/flashcards/${flashcard.id}`);
     })
