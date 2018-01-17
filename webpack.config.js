@@ -14,7 +14,7 @@ module.exports = {
     filename: 'index_bundle.js'
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'public'),
     port: 3000,
     proxy: [{
       context: ['/api'],

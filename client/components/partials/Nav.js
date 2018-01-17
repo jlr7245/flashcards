@@ -10,15 +10,15 @@ const Nav = (props) => {
         <li><Link to="/keywords">Keywords</Link></li>
         <li><Link to="/quizzes">Quizzes</Link></li>
         {(props.auth || false) ? (
-          <>
+          <React.Fragment>
             <li><Link to="/dash">Dashboard</Link></li>
             <li><Link to="/logout">Logout</Link></li>
-          </>
+          </React.Fragment>
         ) : (
-          <>
+          <React.Fragment>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/register">Register</Link></li>
-          </>
+          </React.Fragment>
         )}
       </ul>
     </nav>
@@ -26,3 +26,9 @@ const Nav = (props) => {
 }
 
 export default Nav;
+
+/*
+
+
+
+        */
