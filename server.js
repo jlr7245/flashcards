@@ -43,11 +43,11 @@ app.get('/', (req, res) => {
   res.send('Hello WOrld!');
 });
 
-app.use('/flashcards', flashcardsRouter);
-app.use('/keywords', keywordsRouter);
-app.use('/quizzes', quizRouter);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/api/flashcards', flashcardsRouter);
+app.use('/api/keywords', keywordsRouter);
+app.use('/api/quizzes', quizRouter);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.use('*', (req, res) => {
   res.status(404).send('Not Found!');

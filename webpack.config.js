@@ -17,7 +17,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     port: 3000,
     proxy: [{
-      context: ['/auth', '/flashcards', '/quizzes', '/keywords', '/users'],
+      context: ['/api'],
       target: 'http://localhost:3001',
     }],
   },
