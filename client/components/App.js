@@ -23,6 +23,7 @@ class App extends Component {
         <main>
           <Route exact path="/" component={Home} />
           <Route exact path="/flashcards" component={FlashcardsContainer} />
+          <Route exact path="/flashcards/:id" component={FlashcardsContainer} />
         </main>
         <Footer />
       </div>

@@ -3,6 +3,7 @@ import { fetchAllFlashcards } from '../actions/flashcards';
 import { connect } from 'react-redux';
 
 import FlashcardList from './FlashcardList';
+import FlashcardSingle from './FlashcardSingle';
 
 class FlashcardsContainer extends Component {
   componentDidMount() {
@@ -14,6 +15,7 @@ class FlashcardsContainer extends Component {
       <div>
         <h1>Here is your flashcards container</h1>
         {!isLoading && <FlashcardList flashcards={flashcards} />}
+        {!isLoading && <FlashcardSingle flashcards={flashcards} id={85} />}
       </div>
     )
   }
