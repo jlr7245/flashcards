@@ -6,7 +6,10 @@ import rootReducer from './reducers/index';
 
 export const history = createHistory();
 
-const initialState = {};
+const initialState = {
+  flashcards: [],
+  isLoading: true,
+};
 const enhancers = [];
 const middleware = [
   thunk,
