@@ -3,8 +3,6 @@ import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from './partials/Header';
-import Footer from './partials/Footer';
-
 import Home from './Home';
 import FlashcardsContainer from './FlashcardsContainer';
 
@@ -35,7 +33,6 @@ class App extends Component {
           <Route exact path="/dash" component={Dash} />
           <Route exact path="/logout" component={Logout} />
         </main>
-        <Footer />
       </div>
     );
   }
