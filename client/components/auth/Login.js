@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import { postToLogin } from '../../actions/auth';
+
 
 class Login extends Component {
   constructor() {
@@ -34,6 +37,7 @@ class Login extends Component {
           <input type="password" name="password" placeholder="password" onChange={this.handleChange} password={password} />
           <input type="submit" value="Log in!" />
         </form>
+        { (this.props.auth) && <Redirect push to="/dash" />}
       </div>
     )
   }
