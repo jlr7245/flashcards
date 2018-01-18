@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { postToLogin } from '../../actions/auth';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
+      username: '',
       password: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,14 +22,15 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.postToLogin(this.state);
   }
 
   render() {
-    const { name, password } = this.state;
+    const { username, password } = this.state;
     return (
       <div className="loginform">
         <form onSubmit={this.handleSubmit} >
-          <input type="text" name="name" placeholder="name" onChange={this.handleChange} value={name} />
+          <input type="text" name="username" placeholder="username" onChange={this.handleChange} value={username} />
           <input type="password" name="password" placeholder="password" onChange={this.handleChange} password={password} />
           <input type="submit" value="Log in!" />
         </form>
@@ -37,4 +39,16 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return ({
+    auth: state.auth,
+  });
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    postToLogin: (data) => dispatch(postToLogin(data)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

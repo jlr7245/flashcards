@@ -8,6 +8,7 @@ export const postToLogin = (data) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     })
       .then(res => res.json())
       .then(res => {
@@ -22,7 +23,8 @@ export const postToLogin = (data) => {
   }
 }
 
-export const setAuth = auth => ({
+export const setAuth = (auth) => {
+  return ({
   type: 'SET_AUTH',
   auth,
-});
+})};
