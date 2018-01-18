@@ -9,6 +9,8 @@ export const history = createHistory();
 const initialState = {
   flashcards: [],
   isLoading: true,
+  auth: false,
+  user: {},
 };
 const enhancers = [];
 const middleware = [
