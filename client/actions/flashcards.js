@@ -3,7 +3,9 @@ import { isLoading } from './is-loading';
 export const fetchAllFlashcards = () => {
   return dispatch => {
     dispatch(isLoading(true));
-    fetch('/api/flashcards')
+    fetch('/api/flashcards', {
+      credentials: 'include',
+    })
       .then(res => res.json())
       .then(res => {
         console.log(res);
