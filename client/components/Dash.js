@@ -8,14 +8,37 @@ import FlashcardList from './FlashcardList';
 
 class Dash extends Component {
   componentDidMount() {
-    if (!this.props.user.hasOwnProperty('flashcards')) this.props.fetchUserProfile();
+    if (!this.props.user.hasOwnProperty('flashcards'))
+      this.props.fetchUserProfile();
   }
+
+  showUser() {
+    const { user } = this.props;
+    return (
+      <div className="user-info">
+        <div className="info-container">
+          <h3>Welcome back, {user.username} !</h3>
+          {user.flashcards && (
+            <p className="numberlist">
+              You have uploaded {user.flashcards.length} flashcard(s).
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { auth, user, isLoading } = this.props;
     return (
       <div>
         {!auth && <Redirect push to="/login" />}
-        {isLoading || !user.flashcards ? <p>Loading...</p> : <FlashcardList flashcards={user.flashcards} />}
+        {isLoading && !user.username ? '' : this.showUser()}
+        {isLoading || !user.flashcards ? (
+          <p>Loading...</p>
+        ) : (
+          <FlashcardList flashcards={user.flashcards} />
+        )}
       </div>
     );
   }
@@ -30,6 +53,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchUserProfile: () => dispatch(fetchUserProfile()),
   load: () => dispatch(load(true)),
-}); 
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dash);

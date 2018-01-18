@@ -14,6 +14,9 @@ import Dash from './Dash';
 
 import { getAuthStatus } from '../actions/auth';
 
+import '../styles/reset.css';
+import '../styles/style.css';
+
 
 class App extends Component {
   componentDidMount() {

@@ -31,13 +31,15 @@ class Login extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div className="loginform">
-        <form onSubmit={this.handleSubmit} >
-          <input type="text" name="username" placeholder="username" onChange={this.handleChange} value={username} />
-          <input type="password" name="password" placeholder="password" onChange={this.handleChange} password={password} />
-          <input type="submit" value="Log in!" />
-        </form>
-        { (this.props.auth) && <Redirect push to="/dash" />}
+      <div className="form-page">
+        <div className="add">
+          <form onSubmit={this.handleSubmit} >
+            <input type="text" name="username" placeholder="username" onChange={this.handleChange} value={username} />
+            <input type="password" name="password" placeholder="password" onChange={this.handleChange} password={password} />
+            <input type="submit" value="Log in!" />
+          </form>
+          { (this.props.auth) && <Redirect push to="/dash" />}
+        </div>
       </div>
     )
   }

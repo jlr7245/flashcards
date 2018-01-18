@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const FlashcardList = (props) => {
   const { flashcards } = props;
   return (
-    <div className="flashcards-list">
+    <div className="flashcard-container">
       {flashcards.map(({id, category, difficulty, question}) => {
         return (
           <div className="flashcard" key={id}>
