@@ -8,6 +8,8 @@ const user = (state = {}, action) => {
         ...state,
         flashcards: user.flashcards,
       }
+    case 'CLEAR_USER':
+      return {};
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
+  console.log('nav props ======> ', props);
   return (
     <nav>
       <ul>
@@ -9,7 +10,7 @@ const Nav = (props) => {
         <li><Link to="/flashcards">Flashcards</Link></li>
         <li><Link to="/keywords">Keywords</Link></li>
         <li><Link to="/quizzes">Quizzes</Link></li>
-        {(props.auth || false) ? (
+        {(props.auth) ? (
           <React.Fragment>
             <li><Link to="/dash">Dashboard</Link></li>
             <li><Link to="/logout">Logout</Link></li>
@@ -26,9 +27,3 @@ const Nav = (props) => {
 }
 
 export default Nav;
-
-/*
-
-
-
-        */

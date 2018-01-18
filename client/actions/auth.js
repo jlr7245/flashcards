@@ -1,4 +1,4 @@
-import { setUser } from './user'
+import { setUser, clearUser } from './user'
 
 export const postToLogin = (data) => {
   return dispatch => {
@@ -43,3 +43,16 @@ export const getAuthStatus = () => {
     }).catch(err => console.log(err));
   }
 };
+
+export const logoutUser = () => {
+  return dispatch => {
+    fetch('/api/auth/logout', {
+      credentials: 'include',
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch(setAuth(res.auth));
+      dispatch(clearUser());
+    }).catch(err => console.log(err));
+  }
+}

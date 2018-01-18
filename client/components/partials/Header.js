@@ -1,11 +1,11 @@
 import React from 'react';
 import Nav from './Nav';
 
-const Header = () => {
+const Header = props => {
   return (
     <header>
       <div className="logo">Thundercats Flashcards!</div>
-      <Nav />
+      <Nav auth={props.auth} />
     </header>
   );
 }

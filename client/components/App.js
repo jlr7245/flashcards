@@ -9,6 +9,7 @@ import Home from './Home';
 import FlashcardsContainer from './FlashcardsContainer';
 
 import Login from './auth/Login';
+import Logout from './auth/Logout';
 
 import Dash from './Dash';
 
@@ -25,13 +26,14 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header auth={this.props.auth} />
         <main>
           <Route exact path="/" component={Home} />
           <Route exact path="/flashcards" component={FlashcardsContainer} />
           <Route exact path="/flashcards/:id" render={(props) => <FlashcardsContainer {...props} showModal />} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/dash" component={Dash} />
+          <Route exact path="/logout" component={Logout} />
         </main>
         <Footer />
       </div>

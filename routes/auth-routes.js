@@ -33,7 +33,7 @@ authRouter.post('/register', usersController.create);
 
 authRouter.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/auth/verify');
+  res.redirect('/api/auth/verify');
 });
 
 module.exports = authRouter;
