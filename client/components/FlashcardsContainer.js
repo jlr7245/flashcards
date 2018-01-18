@@ -23,9 +23,8 @@ class FlashcardsContainer extends Component {
     const { flashcards, isLoading, showModal = false } = this.props;
     return (
       <div>
-        <h1>Here is your flashcards container</h1>
         {(!showModal && !isLoading) && <FlashcardList flashcards={flashcards} />}
-        {(showModal && !isLoading) ? this.showModal(this.props.match.params.id) : 'no'}
+        {(showModal && !isLoading) && this.showModal(this.props.match.params.id)}
       </div>
     )
   }
