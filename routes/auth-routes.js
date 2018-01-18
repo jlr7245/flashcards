@@ -8,8 +8,8 @@ const authRouter = express.Router();
 authRouter.post(
   '/login',
   passport.authenticate('local', {
-    successRedirect: '/auth/verify',
-    failureRedirect: '/auth/verify',
+    successRedirect: '/api/auth/verify',
+    failureRedirect: '/api/auth/verify',
     failureFlash:    true,
   })
 );
