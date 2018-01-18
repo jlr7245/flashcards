@@ -10,12 +10,6 @@ import FlashcardsContainer from './FlashcardsContainer';
 
 
 class App extends Component {
-  componentDidMount() {
-    fetch('/flashcards')
-      .then(res => res.json())
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  }
   render() {
     return (
       <div className="app">
@@ -23,7 +17,7 @@ class App extends Component {
         <main>
           <Route exact path="/" component={Home} />
           <Route exact path="/flashcards" component={FlashcardsContainer} />
-          <Route exact path="/flashcards/:id" component={FlashcardsContainer} />
+          <Route exact path="/flashcards/:id" render={(props) => <FlashcardsContainer {...props} showModal />} />
         </main>
         <Footer />
       </div>
