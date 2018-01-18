@@ -8,6 +8,8 @@ import Footer from './partials/Footer';
 import Home from './Home';
 import FlashcardsContainer from './FlashcardsContainer';
 
+import Login from './auth/Login';
+
 
 class App extends Component {
   render() {
@@ -18,6 +20,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/flashcards" component={FlashcardsContainer} />
           <Route exact path="/flashcards/:id" render={(props) => <FlashcardsContainer {...props} showModal />} />
+          <Route exact path="/login" component={Login} />
         </main>
         <Footer />
       </div>

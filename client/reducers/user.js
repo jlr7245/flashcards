@@ -2,10 +2,10 @@ const user = (state = {}, action) => {
   const { type, user } = action;
   switch(type) {
     case 'SET_USER':
-      return {
+      return ({
         ...state,
         user,
-      }
+      })
     default:
       return state;
   }

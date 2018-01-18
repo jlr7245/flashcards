@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './client/index.html',
   filename: 'index.html',
-  inject: 'body'
 });
 
 module.exports = {
@@ -17,18 +16,32 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     port: 3000,
     historyApiFallback: true,
-    proxy: [{
-      context: ['/api'],
-      target: 'http://localhost:3001',
-    }],
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:3001',
+      },
+    ],
   },
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react', 'stage-2'],
+        },
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react', 'stage-2'],
+        },
+      },
     ],
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig],
 };
-
-
