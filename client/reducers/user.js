@@ -3,6 +3,11 @@ const user = (state = {}, action) => {
   switch(type) {
     case 'SET_USER':
       return user;
+    case 'SET_USER_FLASHCARDS':
+      return {
+        ...state,
+        flashcards: user.flashcards,
+      }
     default:
       return state;
   }

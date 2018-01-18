@@ -28,3 +28,18 @@ export const setAuth = (auth) => {
   type: 'SET_AUTH',
   auth,
 })};
+
+export const getAuthStatus = () => {
+  return dispatch => {
+    fetch('/api/auth/verify', {
+      credentials: 'include',
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.auth === true) {
+        dispatch(setAuth(res.auth));
+        dispatch(setUser(res.data.user));
+      } else dispatch(setAuth(res.auth));
+    }).catch(err => console.log(err));
+  }
+};
