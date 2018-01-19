@@ -23,6 +23,27 @@ export const postToLogin = (data) => {
   }
 }
 
+export const postToRegister = (data) => {
+  return dispatch => {
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        dispatch(setAuth(res.auth));
+        if (res.auth === true) {
+          dispatch(setUser(res.data.user));
+        }
+      }).catch(err => console.log(err));
+  }
+}
+
 export const setAuth = (auth) => {
   return ({
   type: 'SET_AUTH',

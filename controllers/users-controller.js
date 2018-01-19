@@ -29,7 +29,7 @@ usersController.create = (req, res, next) => {
     .then((user) => {
       req.login(user, (err) => {
         if (err) return next(err);
-        return res.redirect('/user');
+        return res.redirect('/api/user');
       });
     })
     .catch(next);

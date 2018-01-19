@@ -4,14 +4,13 @@ import { Redirect } from 'react-router-dom';
 
 import { postToLogin } from '../../actions/auth';
 
-
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       username: '',
       password: '',
-    }
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -33,28 +32,40 @@ class Login extends Component {
     return (
       <div className="form-page">
         <div className="add">
-          <form onSubmit={this.handleSubmit} >
-            <input type="text" name="username" placeholder="username" onChange={this.handleChange} value={username} />
-            <input type="password" name="password" placeholder="password" onChange={this.handleChange} password={password} />
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="username"
+              placeholder="username"
+              onChange={this.handleChange}
+              value={username}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              onChange={this.handleChange}
+              password={password}
+            />
             <input type="submit" value="Log in!" />
           </form>
-          { (this.props.auth) && <Redirect push to="/dash" />}
+          {this.props.auth && <Redirect push to="/dash" />}
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  return ({
+  return {
     auth: state.auth,
-  });
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    postToLogin: (data) => dispatch(postToLogin(data)),
-  }
-}
+    postToLogin: data => dispatch(postToLogin(data)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
