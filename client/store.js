@@ -12,6 +12,10 @@ const initialState = {
   isLoading: true,
   auth: false,
   user: {},
+  keywords: {
+    allKeywords: [],
+    currentKeywords: [],
+  }
 };
 const enhancers = [];
 const middleware = [

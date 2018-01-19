@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import FlashcardList from './FlashcardList';
 import FlashcardSingle from './FlashcardSingle';
 import Modal from '../partials/Modal';
+import Keywords from '../partials/Keywords';
 
 class FlashcardsContainer extends Component {
   componentDidMount() {
@@ -20,10 +21,15 @@ class FlashcardsContainer extends Component {
     )
   }
   render() {
-    const { flashcards, isLoading, showModal = false } = this.props;
+    const { flashcards, isLoading, showModal = false, keywords } = this.props;
     return (
       <div>
-        {(!showModal && !isLoading) && <FlashcardList flashcards={flashcards} />}
+        {(!showModal && !isLoading) && (
+          <React.Fragment>
+            <FlashcardList flashcards={flashcards} />
+            <Keywords keywords={keywords.allKeywords} />
+          </React.Fragment>
+        )}
         {(showModal && !isLoading) && this.showModal(this.props.match.params.id)}
       </div>
     )
@@ -34,6 +40,7 @@ const mapStateToProps = (state) => {
   return {
     flashcards: state.flashcards,
     isLoading: state.isLoading,
+    keywords: state.keywords,
   };
 };
 

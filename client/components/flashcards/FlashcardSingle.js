@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 
-import { isLoading } from '../../actions/is-loading';
+import { getFlashcardKeywords } from '../../actions/keywords';
+
+import Keywords from '../partials/Keywords';
 
 class FlashcardSingle extends Component {
+  componentDidMount() {
+    console.log('MOUNT ===========>>>>>>>')
+    this.props.getFlashcardKeywords(this.props.id);
+  }
   showFlashcard() {
     const { flashcards, id } = this.props;
     const { 
@@ -26,10 +32,11 @@ class FlashcardSingle extends Component {
   }
   
   render() {
-    const { isLoading, flashcards } = this.props;
+    const { isLoading, flashcards, keywords } = this.props;
     return (
       <div className="flashcard-single-container">
         {!isLoading && flashcards.length > 0 ? this.showFlashcard(): <p>Loading...</p>}
+        {!isLoading && <Keywords keywords={keywords.currentKeywords} />}
       </div>
     );
   }
@@ -39,12 +46,13 @@ const mapStateToProps = (state) => {
   return {
     flashcards: state.flashcards,
     isLoading: state.isLoading,
+    keywords: state.keywords,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    currentlyLoading: () => dispatch(isLoading(true)),
+    getFlashcardKeywords: (id) => dispatch(getFlashcardKeywords(id)),
   }
 }
 

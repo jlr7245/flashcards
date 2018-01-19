@@ -7,7 +7,10 @@ flashcardsController.index = (req, res, next) => {
   Flashcard.findAll()
     .then((flashcards) => {
       res.status(200).json({
-        data: { flashcards },
+        data: { 
+          flashcards,
+          keywords: res.locals.keywords,
+         },
         auth: !!req.user,
       });
     })

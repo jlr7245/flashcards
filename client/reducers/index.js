@@ -4,6 +4,7 @@ import flashcards from './flashcards';
 import isLoading from './is-loading';
 import auth from './auth';
 import user from './user';
+import keywords from './keywords';
 
 export default combineReducers({
   routing: routerReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   isLoading,
   user,
   auth,
+  keywords,
 });
