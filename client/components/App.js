@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 
 import Header from './partials/Header';
 import Home from './Home';
-import FlashcardsContainer from './FlashcardsContainer';
+import FlashcardsContainer from './flashcards/FlashcardsContainer';
 
 import Login from './auth/Login';
 import Logout from './auth/Logout';
 import Register from './auth/Register';
 
-import Dash from './Dash';
+import Dash from './user/Dash';
 
 import { getAuthStatus } from '../actions/auth';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 
-import { isLoading } from '../actions/is-loading';
+import { isLoading } from '../../actions/is-loading';
 
 class FlashcardSingle extends Component {
   showFlashcard() {

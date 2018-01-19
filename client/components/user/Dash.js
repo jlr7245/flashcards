@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { fetchUserProfile } from '../actions/user';
-import { isLoading as load } from '../actions/is-loading';
+import { fetchUserProfile } from '../../actions/user';
+import { isLoading as load } from '../../actions/is-loading';
 
-import FlashcardList from './FlashcardList';
+import FlashcardList from '../flashcards/FlashcardList';
 
 class Dash extends Component {
   componentDidMount() {

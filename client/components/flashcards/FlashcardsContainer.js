@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { fetchAllFlashcards } from '../actions/flashcards';
+import { fetchAllFlashcards } from '../../actions/flashcards';
 import { connect } from 'react-redux';
 
 import FlashcardList from './FlashcardList';
 import FlashcardSingle from './FlashcardSingle';
-import Modal from './partials/Modal';
+import Modal from '../partials/Modal';
 
 class FlashcardsContainer extends Component {
   componentDidMount() {
