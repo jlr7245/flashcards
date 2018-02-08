@@ -25,10 +25,10 @@ class FlashcardsContainer extends Component {
     return (
       <div>
         {(!showModal && !isLoading) && (
-          <React.Fragment>
+          <div>
             <FlashcardList flashcards={flashcards} />
             <Keywords keywords={keywords.allKeywords} />
-          </React.Fragment>
+          </div>
         )}
         {(showModal && !isLoading) && this.showModal(this.props.match.params.id)}
       </div>

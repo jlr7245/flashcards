@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
@@ -9,17 +9,10 @@ const Nav = (props) => {
         <li><Link to="/flashcards">Flashcards</Link></li>
         <li><Link to="/keywords">Keywords</Link></li>
         <li><Link to="/quizzes">Quizzes</Link></li>
-        {(props.auth) ? (
-          <React.Fragment>
-            <li><Link to="/dash">Dashboard</Link></li>
-            <li><Link to="/logout">Logout</Link></li>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
-          </React.Fragment>
-        )}
+        {props.auth && <li><Link to="/dash">Dashboard</Link></li>}
+        {props.auth && <li><Link to="/logout">Logout</Link></li>}
+        {!props.auth && <li><Link to="/login">Login</Link></li>}
+        {!props.auth && <li><Link to="/register">Register</Link></li>}
       </ul>
     </nav>
   )
