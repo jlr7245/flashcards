@@ -14,7 +14,7 @@ quizzesController.public = (req, res, next) => {
     .then((quizzes) => {
       res.json({
         auth: !!req.user,
-        quizzes,
+        data: { quizzes },
       });
     }).catch(next);
 };
@@ -25,7 +25,7 @@ quizzesController.show = (req, res, next) => {
     .then((quiz) => {
       res.json({
         auth: !!req.user,
-        quiz,
+        data: { quiz },
       });
     }).catch(next);
 };

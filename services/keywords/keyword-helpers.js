@@ -20,6 +20,26 @@ function getKeywords(req, res, next) {
     .catch(err => next(err));
 }
 
+async function getKeywordsForSeed({question, id}) {
+  const initialRes = await fetch('https://apiv2.indico.io/keywords?version=2', {
+    method:  'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      api_key: process.env.API_KEY,
+      data:    question,
+    }),
+  });
+  const jsonRes = await initialRes.json();
+  const keywords = [];
+  for (const key in jsonRes.results) {
+    keywords.push({word: key, fc_id: id});
+  }
+  console.log(keywords);
+  return keywords;
+}
+
 function formatApiData(req, res, next) {
   const keywords = [];
   for (const key in res.locals.initialData) {
@@ -31,5 +51,6 @@ function formatApiData(req, res, next) {
 
 module.exports = {
   getKeywords,
+  getKeywordsForSeed,
   formatApiData,
 };

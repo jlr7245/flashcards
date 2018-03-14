@@ -16,7 +16,7 @@ const userRoutes        = require('./routes/user-routes');
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
@@ -40,16 +40,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.render('index', {
-    auth: !!req.user,
-  });
+  res.send('Hello WOrld!');
 });
 
-app.use('/flashcards', flashcardsRouter);
-app.use('/keywords', keywordsRouter);
-app.use('/quizzes', quizRouter);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/api/flashcards', flashcardsRouter);
+app.use('/api/keywords', keywordsRouter);
+app.use('/api/quizzes', quizRouter);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.use('*', (req, res) => {
   res.status(404).send('Not Found!');

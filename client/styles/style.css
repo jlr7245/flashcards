@@ -1,0 +1,331 @@
+body {
+  min-height: 100vh;
+  font-family: sans-serif;
+  line-height: 1.4em;
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+header {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-around;
+  padding: 10px 50px;
+  border-bottom: 3px solid blue;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+header nav ul {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.logo {
+  font-size: 2em;
+  text-transform: uppercase;
+  font-weight: 900;
+  box-sizing: border-box;
+  font-style: italic;
+}
+
+header nav ul li a {
+  padding: 0 15px;
+  color: blue;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.home {
+  background-color: #FFF7C9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.home h1 {
+  font-size: 5em;
+  max-width: 50%;
+  line-height: 1.4em;
+  text-align: center;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+  .home h1 {
+    font-size: 2em;
+  }
+}
+
+.flashcard-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flashcard {
+  max-width: 500px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  flex: 1 240px;
+  padding: 30px;
+  border: 1px solid #ddd;
+  margin: 20px;
+  transition: 0.2s;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ece1a1+0,fff7c7+42 */
+  background: #ece1a1; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #ece1a1 0%, #fff7c7 42%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #ece1a1 0%,#fff7c7 42%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #ece1a1 0%,#fff7c7 42%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ece1a1', endColorstr='#fff7c7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.flashcard a.linktosingle {
+  border-bottom: 3px solid blue;
+  transition: 0.2s;
+  color: blue;
+  text-decoration: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.flashcard a.linktosingle:hover {
+  transform: translateY(-5px);
+}
+
+.flashcard h3 {
+  flex: 1;
+  padding-bottom: 25px;
+}
+
+.flashcard:hover {
+  box-shadow: 5px 5px 10px#eee;
+}
+
+.meta {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  margin-bottom: 10px;
+}
+
+.delete {
+  display: inline-block;
+}
+
+.meta span, .editlink, .dellink {
+  background-color: rgb(0,0,255);
+  display: inline-block;
+  color: white;
+  padding: 2px 8px;
+  border: 0;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.dellink {
+  cursor: pointer;
+}
+
+.flashcard h3 {
+  font-size: 1.5em;
+  line-height: 1.4em;
+}
+
+.flashcard-single-container {
+  display: flex;
+  flex-grow: 1;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.flashcard-single-container .flashcard {
+  flex: 0;
+}
+
+p.question {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: blue;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.form-page {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.add form, .edit form {
+  width: 50vw;
+  padding: 50px;
+  box-sizing: border-box;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+}
+
+form input[type=text], form input[type=number], form input[type=email], form input[type=password] {
+  border: 0;
+  border-bottom: 3px solid #eee;
+  margin: 20px 0;
+  font-size: 1em;
+  padding: 5px;
+  display: block;
+  transition: 0.3s;
+}
+
+.add form input[type=text], .add form input[type=number], .edit form input[type=text], .edit form input[type=number], .login form input[type=text], .register form input[type=text], form input[type=email], form input[type=password] {
+  width: 100%;
+  font-size: 1.7em;
+}
+
+form input[type=text]:focus, form input[type=number]:focus,
+form input[type=email]:focus, form input[type=password]:focus {
+  border-bottom: 3px solid blue;
+  outline: 0;
+}
+
+.add form input[type=submit], .edit form input[type=submit], 
+.login form input[type=submit], .register form input[type=submit]  {
+  background-color: blue;
+  display: block;
+  margin: auto;
+  padding: 10px 30px;
+  font-size: 1.5em;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.quiz-creator form input[type=submit]  {
+  background-color: blue;
+  display: block;
+  padding: 10px 30px;
+  font-size: 1.5em;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add form input[type=submit]:hover, .add form input[type=submit]:focus,
+.edit form input[type=submit]:hover, .edit form input[type=submit]:focus {
+  outline: 0;
+  background-color: blue;
+}
+
+.info-container {
+  width: 80vw;
+  padding: 50px;
+  box-sizing: border-box;
+  margin: 50px auto;
+  border: 1px solid #eee;
+}
+
+.info-container h3 {
+  font-size: 2em;
+  line-height: 1.4em;
+  font-weight: bold;
+  color: blue;
+}
+
+.info-container p {
+  font-size: 1.5em;
+  line-height: 1.4em;
+}
+
+.keywords {
+  padding: 40px 80px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.keyword {
+  color: white;
+  background-color: blue;
+  padding: 3px 7px;
+  border-radius: 20px;
+  margin: 5px;
+  font-size: 0.8em;
+}
+
+.quiz-creator {
+  background-color: rgba(255,255,255,0.95);
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.quiz-creator .quiz-form {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .quiz-creator .quiz-form {
+    flex-direction: column;
+  }
+}
+
+.explanation {
+  text-align: center;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.createquizbutton {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#createquiz {
+  font-size: 2em;
+  background-color: blue;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+#createquiz:hover {
+  transform: scale(1.2,1.2);
+}
+
+.quiz-add {
+  border: 3px solid red;
+  box-shadow: 0 0 10px #aaa;
+}
+
+.pointer {
+  cursor: pointer;
+}
