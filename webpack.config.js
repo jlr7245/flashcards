@@ -14,12 +14,12 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    port: 3000,
+    port: 2020,
     historyApiFallback: true,
     proxy: [
       {
         context: ['/api'],
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3005',
       },
     ],
   },

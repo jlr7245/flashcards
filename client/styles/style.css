@@ -71,12 +71,18 @@ header nav ul li a {
   justify-content: center;
 }
 
-.flashcard {
+.flashcard-container > a {
   max-width: 500px;
+  flex: 1 240px;
+  box-sizing: border-box;
+  display: flex;
+  text-decoration: none;
+}
+
+.flashcard {
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  flex: 1 240px;
   padding: 30px;
   border: 1px solid #ddd;
   margin: 20px;
@@ -89,7 +95,12 @@ header nav ul li a {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ece1a1', endColorstr='#fff7c7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.flashcard a.linktosingle {
+a .flashcard h3 {
+  color: black;
+  text-decoration: none;
+}
+
+.flashcard .linktosingle {
   border-bottom: 3px solid blue;
   transition: 0.2s;
   color: blue;
@@ -98,7 +109,7 @@ header nav ul li a {
   cursor: pointer;
 }
 
-.flashcard a.linktosingle:hover {
+.flashcard .linktosingle:hover {
   transform: translateY(-5px);
 }
 
