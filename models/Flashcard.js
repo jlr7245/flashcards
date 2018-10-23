@@ -6,7 +6,7 @@ function Flashcard(card) {
   this.answer = this.validate(card.answer, 'answer');
   this.difficulty = this.validate(card.difficulty, 'difficulty');
   this.category = this.validate(card.category, 'category');
-  this.user_id = this.validate(card.user_id, 'user id');
+  this.user_id = this.validate(card.user_id, 'user id', true);
 }
 
 const flashcardStatics = require('./model-defaults')('flashcards');

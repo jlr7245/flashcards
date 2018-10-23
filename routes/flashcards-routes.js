@@ -35,7 +35,8 @@ flashcardsRouter.route('/:id(\\d+)')
 flashcardsRouter.route('/')
   .get(
     keywordsController.getAll,
-    flashcardsController.index
+    flashcardsController.index,
+    flashcardsController.limited
   )
   .post(
     authHelpers.loginRequired,
