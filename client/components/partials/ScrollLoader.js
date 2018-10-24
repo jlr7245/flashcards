@@ -28,12 +28,15 @@ class ScrollLoader extends Component {
   render() {
     const { isNavigatingWithTabs } = this.state
     const tabHandler = isNavigatingWithTabs ? {} : { onKeyDownCapture: this.setNavigationStyle }
-    const { onHitBottom } = this.props
+    const { onHitBottom, setFocus } = this.props
     return (
       <div {...tabHandler} >
         {this.props.children}
         {isNavigatingWithTabs && (
-          <button onClick={onHitBottom}>Load More</button>
+          <button
+            onClick={onHitBottom}
+            onKeyDown={e => e.key === 'Tab' && setFocus('nextElemForFocus')}
+          >Load More</button>
         )}
       </div>
     )
