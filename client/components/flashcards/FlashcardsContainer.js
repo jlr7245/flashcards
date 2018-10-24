@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { fetchAllFlashcards } from '../../actions/flashcards';
+import { fetchFlashcardSet } from '../../actions/flashcards';
 import { connect } from 'react-redux';
 
 import FlashcardList from './FlashcardList';
 import FlashcardSingle from './FlashcardSingle';
 import Modal from '../partials/Modal';
 import Keywords from '../partials/Keywords';
+import ScrollLoader from '../partials/ScrollLoader';
 
 class FlashcardsContainer extends Component {
   componentDidMount() {
-    this.props.fetchAllFlashcards();
+    this.props.fetchFlashcardSet();
   }
 
   showModal(id) {
@@ -26,7 +27,9 @@ class FlashcardsContainer extends Component {
       <div>
         {(!showModal && !isLoading) && (
           <React.Fragment>
-            <FlashcardList flashcards={flashcards} />
+            <ScrollLoader onHitBottom={this.props.fetchFlashcardSet} isLoading={isLoading}>
+              <FlashcardList flashcards={flashcards} />
+            </ScrollLoader>
             <Keywords keywords={keywords.allKeywords} />
           </React.Fragment>
         )}
@@ -46,7 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllFlashcards: () => dispatch(fetchAllFlashcards()),
+    fetchFlashcardSet: () => dispatch(fetchFlashcardSet()),
   };
 };
 

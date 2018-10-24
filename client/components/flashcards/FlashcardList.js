@@ -7,7 +7,7 @@ const FlashcardList = (props) => {
     <div className="flashcard-container">
       {flashcards.map(({id, category, difficulty, question}) => {
         return (
-          <Link to={`/flashcards/${id}`} aria-label={question}>
+          <Link to={`/flashcards/${id}`} aria-label={question} key={id}>
             <div className="flashcard" key={id}>
               <div className="meta">
                 <span className="category">{category}</span>

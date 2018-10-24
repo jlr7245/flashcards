@@ -73,7 +73,7 @@ header nav ul li a {
 
 .flashcard-container > a {
   max-width: 500px;
-  flex: 1 240px;
+  flex: 1 300px;
   box-sizing: border-box;
   display: flex;
   text-decoration: none;

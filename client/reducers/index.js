@@ -4,6 +4,7 @@ import flashcards from './flashcards';
 import isLoading from './is-loading';
 import auth from './auth';
 import user from './user';
+import offset from './offset'
 import keywords from './keywords';
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
   user,
   auth,
   keywords,
+  offset
 });

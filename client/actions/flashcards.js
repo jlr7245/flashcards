@@ -1,18 +1,22 @@
 import { isLoading } from './is-loading';
 import { setAllKeywords } from './keywords';
+import { incrementOffset } from './offset';
 
-export const fetchAllFlashcards = () => {
-  return dispatch => {
+export const fetchFlashcardSet = () => {
+  return (dispatch, getState) => {
+    const { offset: { offset }, flashcards } = getState()
+    console.warn(offset)
     dispatch(isLoading(true));
-    fetch('/api/flashcards', {
+    fetch(`/api/flashcards?start=${offset}&count=12`, {
       credentials: 'include',
     })
       .then(res => res.json())
       .then(res => {
         console.log(res);
         dispatch(isLoading(false));
-        dispatch(setFlashcards(res.data.flashcards));
+        dispatch(setFlashcards(flashcards.concat(res.data.flashcards)));
         dispatch(setAllKeywords(res.data.keywords));
+        dispatch(incrementOffset(offset))
       })
       .catch(err => console.log(err));
   };
