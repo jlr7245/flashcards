@@ -25,15 +25,13 @@ class FlashcardsContainer extends Component {
     const { flashcards, isLoading, showModal = false, keywords } = this.props;
     return (
       <div>
-        {(!showModal && !isLoading) && (
-          <React.Fragment>
-            <ScrollLoader onHitBottom={this.props.fetchFlashcardSet} isLoading={isLoading}>
-              <FlashcardList flashcards={flashcards} />
-            </ScrollLoader>
-            <Keywords keywords={keywords.allKeywords} />
-          </React.Fragment>
+        {(!showModal && !(flashcards.length < 0)) && (
+          <ScrollLoader onHitBottom={this.props.fetchFlashcardSet} isLoading={isLoading}>
+            <FlashcardList flashcards={flashcards} />
+          </ScrollLoader>
         )}
         {(showModal && !isLoading) && this.showModal(this.props.match.params.id)}
+        {keywords.allKeywords.length && !showModal && <Keywords keywords={keywords.allKeywords} />}
       </div>
     )
   }

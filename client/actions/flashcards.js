@@ -6,6 +6,7 @@ export const fetchFlashcardSet = () => {
   return (dispatch, getState) => {
     const { offset: { offset }, flashcards } = getState()
     console.warn(offset)
+    if (offset > 0 && flashcards.length < offset) return
     dispatch(isLoading(true));
     fetch(`/api/flashcards?start=${offset}&count=12`, {
       credentials: 'include',
