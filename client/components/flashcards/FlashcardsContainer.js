@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { fetchFlashcardSet } from '../../actions/flashcards';
 import { connect } from 'react-redux';
+import queryString from 'query-string'
 
 import FlashcardList from './FlashcardList';
 import FlashcardSingle from './FlashcardSingle';
@@ -10,7 +11,11 @@ import ScrollLoader from '../partials/ScrollLoader';
 
 class FlashcardsContainer extends Component {
   componentDidMount() {
-    this.props.fetchFlashcardSet();
+    const { fetchFlashcardSet, location } = this.props
+    const values = queryString.parse(location.search)
+    console.warn(values)
+    console.warn(this.props)
+    fetchFlashcardSet()
   }
 
   showModal(id) {
@@ -27,15 +32,16 @@ class FlashcardsContainer extends Component {
   }
 
   setFocus = name => {
+    event.preventDefault()
     this[name].focus()
   }
 
   render() {
-    const { flashcards, isLoading, showModal = false, keywords, offset } = this.props;
+    const { flashcards, isLoading, showModal = false, keywords, offset, history } = this.props;
     return (
       <div>
         {(!showModal && !(flashcards.length < 0)) && (
-          <ScrollLoader onHitBottom={this.props.fetchFlashcardSet} isLoading={isLoading}               setFocus={this.setFocus}>
+          <ScrollLoader onHitBottom={this.props.fetchFlashcardSet} isLoading={isLoading}               setFocus={this.setFocus} history={history}>
             <FlashcardList
               flashcards={flashcards}
               offset={offset}
