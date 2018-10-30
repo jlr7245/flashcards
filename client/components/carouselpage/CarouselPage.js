@@ -31,7 +31,7 @@ class CarouselPage extends Carousel {
     const { loading, flashcards } = this.state
     return (
       <div>
-        {!loading && <Carousel slides={flashcards} itemWidth={800} />}
+        {!loading && <Carousel slides={flashcards} itemWidth={400} />}
       </div>
     )
   }

@@ -359,12 +359,10 @@ form input[type=email]:focus, form input[type=password]:focus {
 
 .slides-container {
   height: 300px;
-  width: 4600px;
 }
 
 .slide {
   height: 300px;
-  width: 800px;
   display: inline-block;
 }
 

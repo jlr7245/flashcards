@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default ({ data, isCurrent }) => {
+export default ({ data, isCurrent, width }) => {
   return (
     <div
+      style={{width}}
       className="slide"
       aria-hidden={isCurrent ? 'false' : 'true'}
     >

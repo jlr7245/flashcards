@@ -57,6 +57,7 @@ class Carousel extends Component {
 
     const tocStyle = {
       transform: mediumUp ? `translateX(${scrollPosition}px)` : 'none',
+      width: itemWidth * slides.length
     };
 
     return (
@@ -64,7 +65,7 @@ class Carousel extends Component {
         <Arrow direction="left" actions={actions} />
         <div className="slides-container" ref={el => this.setRef(el, 'viewport')} style={tocStyle}>
           {slides.map((slide, idx) => (
-            <Slide data={slide} key={slide.id} isCurrent={-scrollPosition === idx * itemWidth} />
+            <Slide data={slide} key={slide.id} isCurrent={-scrollPosition === idx * itemWidth} width={itemWidth} />
           ))}
         </div>
         <Arrow direction="right" actions={actions} />
