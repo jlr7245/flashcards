@@ -373,3 +373,7 @@ form input[type=email]:focus, form input[type=password]:focus {
   height: 300px;
   box-sizing: border-box;
 }
+
+.hidden {
+  visibility: hidden;
+}

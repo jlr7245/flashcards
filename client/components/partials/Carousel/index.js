@@ -48,7 +48,7 @@ class Carousel extends Component {
   }
 
   render() {
-    const { slides } = this.props
+    const { slides, itemWidth } = this.props
     const { mediumUp, scrollPosition } = this.state
     const actions = {
       left: this.onPrev,
@@ -64,7 +64,7 @@ class Carousel extends Component {
         <Arrow direction="left" actions={actions} />
         <div className="slides-container" ref={el => this.setRef(el, 'viewport')} style={tocStyle}>
           {slides.map((slide, idx) => (
-            <Slide data={slide} key={slide.id} scrollPosition={scrollPosition} idx={idx} />
+            <Slide data={slide} key={slide.id} isCurrent={-scrollPosition === idx * itemWidth} />
           ))}
         </div>
         <Arrow direction="right" actions={actions} />
