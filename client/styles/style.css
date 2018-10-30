@@ -340,3 +340,36 @@ form input[type=email]:focus, form input[type=password]:focus {
 .pointer {
   cursor: pointer;
 }
+
+/* carousel stuff */
+
+.carousel {
+  overflow: hidden;
+  width: 800px;
+  margin: auto;
+}
+
+/* .arrow-left {
+  float: left;
+}
+
+.arrow-right {
+  float: right;
+} */
+
+.slides-container {
+  height: 300px;
+  width: 4600px;
+}
+
+.slide {
+  height: 300px;
+  width: 800px;
+  display: inline-block;
+}
+
+.slide > div {
+  margin: 0;
+  height: 300px;
+  box-sizing: border-box;
+}
