@@ -4,6 +4,7 @@ const categoryLookup = require('./category-lookup');
 const flashcardsController = {};
 
 flashcardsController.index = (req, res, next) => {
+  if (req.query.start) return next()
   Flashcard.findAll()
     .then((flashcards) => {
       res.status(200).json({
@@ -16,6 +17,22 @@ flashcardsController.index = (req, res, next) => {
     })
     .catch(next);
 };
+
+flashcardsController.limited = (req, res, next) => {
+  if (!req.query.start) return next()
+  const { start, count } = req.query
+  Flashcard.findLimited(start, count)
+    .then(flashcards => {
+      res.status(200).json({
+        data: {
+          flashcards,
+          keywords: res.locals.keywords,
+        },
+        auth: !!req.user
+      })
+    })
+    .catch(next)
+}
 
 flashcardsController.show = (req, res, next) => {
   Flashcard.findById(req.params.id)

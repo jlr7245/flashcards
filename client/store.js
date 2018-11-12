@@ -8,6 +8,7 @@ import rootReducer from './reducers/index';
 export const history = createHistory();
 
 const initialState = {
+  offset: { offset: 0 },
   flashcards: [],
   isLoading: true,
   auth: false,

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Header from './partials/Header';
 import Home from './Home';
 import FlashcardsContainer from './flashcards/FlashcardsContainer';
+import CarouselPage from './carouselpage/CarouselPage'
 
 import Login from './auth/Login';
 import Logout from './auth/Logout';
@@ -34,6 +35,8 @@ class App extends Component {
             path="/flashcards/:id"
             render={props => <FlashcardsContainer {...props} showModal />}
           />
+
+          <Route exact path="/carousel" component={CarouselPage} />
 
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
