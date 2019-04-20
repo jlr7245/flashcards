@@ -1,8 +1,6 @@
-const express              = require('express');
-const authHelpers          = require('../services/auth/auth-helpers');
-const keywordHelpers       = require('../services/keywords/keyword-helpers');
+const express = require('express');
+const authHelpers = require('../services/auth/auth-helpers');
 const flashcardsController = require('../controllers/flashcards-controller');
-const keywordsController   = require('../controllers/keywords-controller');
 
 const flashcardsRouter = express.Router();
 
@@ -18,10 +16,13 @@ flashcardsRouter.get(
   flashcardsController.edit
 );
 
+flashcardsRouter.get(
+  '/:category([A-Za-z-]+)',
+  flashcardsController.category
+);
 
-flashcardsRouter.get('/:category([A-Za-z-]+)', flashcardsController.category);
-
-flashcardsRouter.route('/:id(\\d+)')
+flashcardsRouter
+  .route('/:id(\\d+)')
   .get(flashcardsController.show)
   .put(
     authHelpers.loginRequired,
@@ -32,18 +33,12 @@ flashcardsRouter.route('/:id(\\d+)')
     flashcardsController.delete
   );
 
-flashcardsRouter.route('/')
-  .get(
-    keywordsController.getAll,
-    flashcardsController.index
-  )
+flashcardsRouter
+  .route('/')
+  .get(flashcardsController.index)
   .post(
     authHelpers.loginRequired,
-    keywordHelpers.getKeywords,
-    keywordHelpers.formatApiData,
-    flashcardsController.create,
-    keywordsController.createOrUpdate,
-    flashcardsController.createKeywordsFlashcards
+    flashcardsController.create
   );
 
 module.exports = flashcardsRouter;

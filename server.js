@@ -1,18 +1,17 @@
 require('dotenv').config();
-const express        = require('express');
-const path           = require('path');
-const logger         = require('morgan');
-const bodyParser     = require('body-parser');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const cookieParser   = require('cookie-parser');
-const session        = require('express-session');
-const passport       = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
 
-const flashcardsRouter  = require('./routes/flashcards-routes');
-const keywordsRouter    = require('./routes/keyword-routes');
-const quizRouter        = require('./routes/quiz-routes');
-const authRoutes        = require('./routes/auth-routes');
-const userRoutes        = require('./routes/user-routes');
+const flashcardsRouter = require('./routes/flashcards-routes');
+const quizRouter = require('./routes/quiz-routes');
+const authRoutes = require('./routes/auth-routes');
+const userRoutes = require('./routes/user-routes');
 
 const app = express();
 
@@ -31,11 +30,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(session({
-  secret:            process.env.SECRET_KEY,
-  resave:            false,
-  saveUninitialized: true,
-}));
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,7 +47,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/flashcards', flashcardsRouter);
-app.use('/keywords', keywordsRouter);
 app.use('/quizzes', quizRouter);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
