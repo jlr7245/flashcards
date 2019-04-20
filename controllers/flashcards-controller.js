@@ -38,6 +38,7 @@ flashcardsController.category = (req, res, next) => {
 };
 
 flashcardsController.create = (req, res, next) => {
+  console.log(res.locals);
   new Flashcard({
     question: req.body.question,
     answer: req.body.answer,
@@ -48,7 +49,12 @@ flashcardsController.create = (req, res, next) => {
     .save()
     .then(flashcard => {
       res.locals.flashcard = flashcard;
-      next();
+      res.render('flashcards/flashcards-show', {
+        auth: !!req.user,
+        current_user: req.user ? req.user.id : 0,
+        flashcard,
+        keywords: res.locals.keywords,
+      })
     })
     .catch(next);
 };

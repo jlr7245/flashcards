@@ -16,6 +16,9 @@
     </div>
     <a class="linktosingle" href="/flashcards">Back to all flashcards</a>
   </div>
+  <div><% keywords.forEach(keyword => { %>
+    <span class="keyword"><%=keyword%></span>
+  <% }) %>
 </div>
 
 <% include ../partials/end %>
