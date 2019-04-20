@@ -330,3 +330,68 @@ form input[type=email]:focus, form input[type=password]:focus {
   cursor: pointer;
 }
 
+.so-q {
+  width: 80vw;
+  border: 2px solid blue;
+  padding: 25px;
+  margin: 50px auto;
+  display: flex;
+}
+
+@media screen and (max-width: 480px) {
+  .so-q {
+    flex-direction: column;
+  }
+}
+
+.left {
+  flex: 4;
+}
+
+.meta {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.title a {
+  text-decoration: none;
+}
+
+.title h3 {
+  font-size: 3em;
+  line-height: 1em;
+  margin: 10px 0;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.ans-meta {
+  display: flex;
+  justify-content: space-around;
+}
+
+.meta-num {
+  text-align: center;
+}
+
+.meta-num h4 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.ans-meta .label {
+  font-size: 8px;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.solved {
+  text-align: center;
+}
+

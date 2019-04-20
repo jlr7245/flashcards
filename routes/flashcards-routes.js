@@ -40,6 +40,7 @@ flashcardsRouter
   .post(
     authHelpers.loginRequired,
     keywordHelpers.fetchKeywordsForQuestion,
+    keywordHelpers.fetchQuestionsFromKeywords,
     flashcardsController.create
   );
 

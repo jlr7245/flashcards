@@ -1,0 +1,27 @@
+<div class="stackoverflow-questions">
+<% soQuestions.forEach(question => { %>
+<div class="so-q">
+  <div class="left">
+    <div class="meta">
+      <span class="meta-info"><%= question.owner %></span> • <span class="meta-info"><%= question.creation_date %></span>
+    </div>
+    <div class="title">
+      <a href="<%= question.link %>"><h3><%= question.title %></h3></a>
+    </div>
+  </div>
+  <div class="right">
+    <div class="ans-meta">
+      <div class="meta-num">
+        <h4 class="number"><%= question.score %></h4>
+        <span class="label">votes</span>
+      </div>
+      <div class="meta-num">
+        <h4 class="number"><%= question.answer_count %></h4>
+        <span class="label">answers</span>
+      </div>
+    </div>
+    <div class="solved"><%= question.isAnswered ? 'SOLVED' : 'UNSOLVED' %></div>
+  </div>
+</div>
+<% }) %>
+</div>
