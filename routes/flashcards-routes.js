@@ -1,6 +1,7 @@
 const express = require('express');
 const authHelpers = require('../services/auth/auth-helpers');
 const flashcardsController = require('../controllers/flashcards-controller');
+const keywordsController = require('../controllers/keywords-controller');
 const keywordHelpers = require('../services/keywords/keyword-helpers');
 
 const flashcardsRouter = express.Router();
@@ -40,6 +41,7 @@ flashcardsRouter
   .post(
     authHelpers.loginRequired,
     keywordHelpers.fetchKeywordsForQuestion,
+    keywordsController.create,
     keywordHelpers.fetchQuestionsFromKeywords,
     flashcardsController.create
   );
