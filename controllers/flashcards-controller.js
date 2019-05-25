@@ -21,6 +21,7 @@ flashcardsController.show = (req, res, next) => {
         auth: !!req.user,
         current_user: req.user ? req.user.id : 0,
         flashcard,
+        hasKeywords: false,
       });
     })
     .catch(next);
@@ -54,6 +55,7 @@ flashcardsController.create = (req, res, next) => {
         current_user: req.user ? req.user.id : 0,
         flashcard,
         keywords: res.locals.keywords,
+        hasKeywords: true,
       })
     })
     .catch(next);
