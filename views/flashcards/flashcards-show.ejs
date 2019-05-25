@@ -17,12 +17,12 @@
     <a class="linktosingle" href="/flashcards">Back to all flashcards</a>
   </div>
   <div>
-  <% if (keywords) { %>
+  <% if (!!keywords) { %>
     <% keywords.forEach(keyword => { %>
       <span class="keyword"><%=keyword%></span>
     <% }) %>
   <% } %>
-  <% if (soQuestions) { %>
+  <% if (!!soQuestions) { %>
     <% include ../partials/stackoverflow-questions %>
   <% } %>
 </div>
